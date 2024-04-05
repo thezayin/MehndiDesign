@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "425714963024",
+    "project_id": "mehndi-design-265a4",
+    "storage_bucket": "mehndi-design-265a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425714963024:android:fe6dbe85095a3105fdb755",
+        "android_client_info": {
+          "package_name": "com.thezayin.mehndidesign"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8BRdLiMIZiPpRVdyvHZPhPI5GLvG2Q-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
