@@ -24,15 +24,7 @@ fun TopMenuSearchComponent(modifier: Modifier, navigator: DestinationsNavigator)
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = null,
-            modifier = Modifier
-                .size(30.dp)
-                .clickable {
-                    navigator.navigateUp()
-                }
-        )
+
         Text(
             text = "Search",
             fontSize = 28.sp,

@@ -57,7 +57,7 @@ fun OtherListComponent(modifier: Modifier, navigator: DestinationsNavigator) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_crown),
+                    painter = painterResource(id = com.thezayin.core.R.drawable.ic_crown),
                     contentDescription = null,
                     modifier = Modifier.size(25.dp),
                 )
@@ -109,7 +109,7 @@ fun OtherListComponent(modifier: Modifier, navigator: DestinationsNavigator) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_star),
+                                painter = painterResource(id = com.thezayin.core.R.drawable.ic_star),
                                 contentDescription = null,
                                 modifier = Modifier.size(15.dp),
                                 alignment = Alignment.BottomCenter
@@ -144,7 +144,7 @@ fun OtherListComponent(modifier: Modifier, navigator: DestinationsNavigator) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_app),
+                                painter = painterResource(id = com.thezayin.core.R.drawable.ic_about),
                                 contentDescription = null,
                                 modifier = Modifier.size(15.dp),
                                 alignment = Alignment.BottomCenter
@@ -179,7 +179,7 @@ fun OtherListComponent(modifier: Modifier, navigator: DestinationsNavigator) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_about),
+                                painter = painterResource(id = com.thezayin.core.R.drawable.ic_about),
                                 contentDescription = null,
                                 modifier = Modifier.size(15.dp),
                                 alignment = Alignment.BottomCenter

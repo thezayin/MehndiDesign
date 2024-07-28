@@ -18,11 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.thezayin.mehndidesign.presentation.activity.dialogs.NetworkDialog
-import com.thezayin.mehndidesign.presentation.home.component.ListContent
+import com.thezayin.common.dialogs.NetworkDialog
 import com.thezayin.mehndidesign.presentation.search.component.TopMenuSearchComponent
 import com.thezayin.mehndidesign.presentation.search.component.TopSearchBarComponent
 import com.thezayin.mehndidesign.presentation.search.viewmodel.SearchViewModel
@@ -33,7 +31,6 @@ import org.koin.compose.koinInject
 fun SearchScreen(navigator: DestinationsNavigator) {
     val searchViewModel: SearchViewModel = koinInject()
     val searchQuery by searchViewModel.searchQuery
-    val searchedImages = searchViewModel.searchedImages.collectAsLazyPagingItems()
 
     var checkNetwork by remember { mutableStateOf(false) }
 
@@ -71,7 +68,6 @@ fun SearchScreen(navigator: DestinationsNavigator) {
                 fontSize = 22.sp
             )
 
-            ListContent(items = searchedImages, modifier = Modifier.padding(top = 20.dp))
         }
     }
 }

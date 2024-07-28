@@ -46,7 +46,7 @@ fun TopComponent(
                     .padding(top = 30.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_back),
+                Image(painter = painterResource(id = com.thezayin.core.R.drawable.ic_back),
                     contentDescription = null,
                     modifier = Modifier
                         .size(30.dp)
@@ -61,7 +61,7 @@ fun TopComponent(
                     .size(100.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_main),
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
                 )

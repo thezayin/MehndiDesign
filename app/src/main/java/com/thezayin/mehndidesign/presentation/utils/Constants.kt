@@ -2,7 +2,7 @@ package com.thezayin.mehndidesign.presentation.utils
 
 object Constants {
     const val UNSPLASH_IMAGE_TABLE = "unsplash_image_table"
-    const val UNSPLASH_REMOTE_KEY_TABLE = "unsplash_remote_keys_table"
+    const val REMOTE_KEY_TABLE = "remote_keys_table"
 
     const val ACCESS_KEY = "WuiNrYeCR6RLZQMs-x9UQbyH4PJ711HC6Tj7SrcBWUQ"
     const val BASE_URL = "https://api.unsplash.com/"

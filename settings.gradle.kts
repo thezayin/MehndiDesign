@@ -23,4 +23,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "Mehndi Design"
 include(":app")
- 
+include(":categories")
+include(":entities")
+include(":framework")
+include(":ads")
+include(":core")
+include(":di")
+include(":common")
+include(":analytics")
+include(":home")
+include(":databases")

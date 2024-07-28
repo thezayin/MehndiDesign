@@ -11,13 +11,12 @@ import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.thezayin.mehndidesign.R
-import com.thezayin.mehndidesign.presentation.activity.MainActivity
+import com.thezayin.mehndidesign.common.activity.MainActivity
 import com.thezayin.mehndidesign.presentation.utils.Constants.CHANNEL_ID
 import kotlin.random.Random
 
@@ -63,9 +62,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setContentTitle(message.data["title"])
             .setContentText(message.data["text"])
             .setLargeIcon(message.data["image"]?.let {
-                BitmapFactory.decodeResource(resources, R.drawable.ic_main)
+                BitmapFactory.decodeResource(resources, com.thezayin.core.R.drawable.ic_main)
             })
-            .setSmallIcon(R.drawable.ic_main)
+            .setSmallIcon(com.thezayin.core.R.drawable.ic_main)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .build()

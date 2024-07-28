@@ -85,7 +85,7 @@ fun LegalListComponent(modifier: Modifier) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_privacy),
+                                painter = painterResource(id = com.thezayin.core.R.drawable.ic_privacy),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(15.dp),
@@ -124,7 +124,7 @@ fun LegalListComponent(modifier: Modifier) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_terms),
+                                painter = painterResource(id = com.thezayin.core.R.drawable.ic_terms),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(15.dp),
@@ -163,7 +163,7 @@ fun LegalListComponent(modifier: Modifier) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_mail),
+                                painter = painterResource(id = com.thezayin.core.R.drawable.ic_mail),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(15.dp),

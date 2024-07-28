@@ -28,14 +28,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.thezayin.common.dialogs.NetworkDialog
 import com.thezayin.mehndidesign.R
-import com.thezayin.mehndidesign.presentation.activity.dialogs.NetworkDialog
 import com.thezayin.mehndidesign.presentation.destinations.HomeScreenDestination
 import com.thezayin.mehndidesign.presentation.utils.checkForInternet
 import kotlinx.coroutines.delay
@@ -71,7 +70,7 @@ fun SplashScreen(
             .background(color = colorResource(id = R.color.background))
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_second_logo),
+            painter = painterResource(id = com.thezayin.core.R.drawable.ic_second_logo),
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
@@ -94,7 +93,7 @@ fun SplashScreen(
                 )
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_hena),
+                    painter = painterResource(id = com.thezayin.core.R.drawable.ic_hena),
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier.size(40.dp)

@@ -12,7 +12,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
-        android:name=".presentation.application.App"
+        android:name=".common.application.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,7 +25,7 @@
         tools:overrideLibrary="androidx.wear.compose.material.core"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.activity.MainActivity"
+            android:name=".common.activity.MainActivity"
             android:exported="true"
             android:hardwareAccelerated="false"
             android:theme="@style/Theme.MehndiDesign">
@@ -39,6 +39,11 @@
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
+
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
 
         <service
             android:name=".presentation.utils.MyFirebaseMessagingService"

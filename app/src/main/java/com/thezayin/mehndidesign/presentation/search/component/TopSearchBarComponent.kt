@@ -64,11 +64,7 @@ fun TopSearchBarComponent(modifier: Modifier, searchViewModel: SearchViewModel) 
                     .weight(0.8f),
                 shape = RoundedCornerShape(8.dp),
                 leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_search),
-                        contentDescription = null,
-                        modifier = Modifier.size(15.dp)
-                    )
+
                 },
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = colorResource(id = R.color.ed_background),
@@ -82,7 +78,7 @@ fun TopSearchBarComponent(modifier: Modifier, searchViewModel: SearchViewModel) 
             )
             Button(
                 onClick = {
-                   searchViewModel.searchQuery(query = query.value.text)
+
                 }, colors = ButtonDefaults.buttonColors(
                     containerColor = colorResource(id = R.color.black),
                     contentColor = colorResource(id = R.color.white)
