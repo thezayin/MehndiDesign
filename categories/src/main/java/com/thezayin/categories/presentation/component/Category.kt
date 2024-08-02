@@ -62,7 +62,7 @@ fun Category(modifier: Modifier, item: Categories, onItemClick: (Categories) -> 
                 Text(
                     text = item.title!!,
                     color = colorResource(id = R.color.white),
-                    fontSize = 20.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(8.dp)

@@ -8,12 +8,15 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.thezayin.ads.AdBuilder
 import com.thezayin.ads.AdStatus
 
-class GoogleRewardedAdBuilder(private val context: Context, private val id: String,) :
-    AdBuilder<RewardedAd> {
+class GoogleRewardedAdBuilder(
+    private val context: Context,
+    private val id: String,
+) : AdBuilder<RewardedAd>() {
+    override val platform: String = "AdMob_Rewarded"
     override fun invoke(onAssign: (AdStatus<RewardedAd>) -> Unit) {
         val adRequest = AdRequest.Builder().build()
-
-        RewardedAd.load(context, id, adRequest,
+        RewardedAd.load(
+            context, id, adRequest,
             object : RewardedAdLoadCallback() {
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     super.onAdFailedToLoad(error)
@@ -24,7 +27,9 @@ class GoogleRewardedAdBuilder(private val context: Context, private val id: Stri
                     super.onAdLoaded(rewardedAd)
                     onAssign(AdStatus.Loaded(rewardedAd))
 
-                    rewardedAd.setOnPaidEventListener { adValue -> }
+                    rewardedAd.setOnPaidEventListener { adValue ->
+                        onPaid?.invoke(adValue)
+                    }
                 }
             })
     }

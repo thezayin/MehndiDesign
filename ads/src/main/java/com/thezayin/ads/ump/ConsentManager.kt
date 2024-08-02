@@ -12,7 +12,7 @@ class ConsentManager(context: Context) {
     private val info = UserMessagingPlatform.getConsentInformation(context)
     private val debugSettings = ConsentDebugSettings.Builder(context).apply {
         setDebugGeography(ConsentDebugSettings.DebugGeography.DEBUG_GEOGRAPHY_DISABLED)
-        addTestDeviceHashedId("200F89B75A8499A90053CBC74699B0A9")
+        addTestDeviceHashedId("DEB31A83BF9A60D8CD161142C18444A6")
     }.build()
 
     private val params = ConsentRequestParameters.Builder().apply {
@@ -41,4 +41,5 @@ class ConsentManager(context: Context) {
     fun ifCanRequestAds(block: () -> Unit) {
         if (info.canRequestAds()) block()
     }
+
 }

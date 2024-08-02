@@ -18,7 +18,7 @@ fun CategoryList(
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = modifier
-            .padding(horizontal = 25.dp, vertical = 10.dp),
+            .padding(horizontal = 25.dp, vertical = 40.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {

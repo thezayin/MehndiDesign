@@ -45,6 +45,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        dataBinding = true
         compose = true
     }
     composeOptions {
@@ -68,6 +69,8 @@ dependencies {
     implementation(project(":di"))
     implementation(project(":home"))
     implementation(project(":databases"))
+    implementation(project(":preview"))
+    implementation(project(":like"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -142,7 +145,9 @@ dependencies {
     implementation("io.ktor:ktor-client-android:2.3.11")
     implementation("io.ktor:ktor-client-cio:2.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0-RC")
+    implementation ("com.github.anrwatchdog:anrwatchdog:1.4.0")
 
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+    implementation("io.github.farimarwat:grizzly:2.1")
 
 }

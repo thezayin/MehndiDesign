@@ -12,17 +12,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
-import com.thezayin.entities.HomeImages
+import com.thezayin.common.component.ImageItem
+import com.thezayin.entities.ImageModel
 
 @Composable
-fun HomeImagesList(items: LazyPagingItems<HomeImages>, modifier: Modifier) {
+fun HomeImagesList(
+    items: LazyPagingItems<ImageModel>,
+    modifier: Modifier,
+    onClick: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .padding(horizontal = 25.dp)
             .fillMaxSize()
     ) {
         Text(
-            text = "Top Picks",
+            text = "Trending",
             modifier = Modifier.padding(bottom = 10.dp, top = 20.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 22.sp
@@ -32,8 +37,13 @@ fun HomeImagesList(items: LazyPagingItems<HomeImages>, modifier: Modifier) {
             modifier = modifier
                 .fillMaxSize(),
         ) {
-            items(items.itemCount) {
-                items[it]?.let { it1 -> ImageItem(image = it1) }
+            items(items.itemCount, key = { items[it]?.id ?: it }) {
+                items[it]?.let { model ->
+                    ImageItem(
+                        url = model.URL,
+                        onClick = onClick
+                    )
+                }
             }
         }
     }

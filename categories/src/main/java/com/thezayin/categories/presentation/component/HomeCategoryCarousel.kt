@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,7 +34,7 @@ fun HomeCategoryCarousel(
         LazyRow(
             state = state
         ) {
-            items(list.size) { index ->
+            items(list.size, key = { list[it].id }) { index ->
                 Category(
                     modifier = modifier,
                     item = list[index],

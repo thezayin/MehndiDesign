@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeTopBar(
-    callback: () -> Unit
+    settingCallback: () -> Unit,
+    likeCallback: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -43,7 +44,7 @@ fun HomeTopBar(
                 modifier = Modifier
                     .size(35.dp)
                     .clickable {
-                        callback()
+                        settingCallback()
                     }
             )
             Spacer(
@@ -69,6 +70,17 @@ fun HomeTopBar(
                         contentScale = ContentScale.Fit
                     )
                 }
+                Image(
+                    painter = painterResource(id = com.thezayin.core.R.drawable.ic_like_filled),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clickable {
+                            likeCallback()
+                        }
+                        .padding(start = 10.dp)
+                        .size(45.dp),
+                    contentScale = ContentScale.Fit
+                )
             }
         }
     }

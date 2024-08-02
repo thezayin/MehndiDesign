@@ -81,6 +81,9 @@ dependencies {
     implementation(libs.firebase.inappmessaging.display)
     implementation(libs.firebase.config)
 
+    implementation("com.squareup.picasso:picasso:2.71828")
+
+
     //serialization
     api(libs.kotlinx.serialization.json)
     // dependency for exoplayer

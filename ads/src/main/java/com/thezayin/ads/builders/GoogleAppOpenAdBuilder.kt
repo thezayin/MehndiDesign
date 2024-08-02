@@ -8,12 +8,15 @@ import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 import com.thezayin.ads.AdBuilder
 import com.thezayin.ads.AdStatus
 
-class GoogleAppOpenAdBuilder(private val context: Context, private val id: String) :
-    AdBuilder<AppOpenAd> {
+class GoogleAppOpenAdBuilder(
+    private val context: Context,
+    private val id: String,
+) : AdBuilder<AppOpenAd>() {
+    override val platform: String = "AdMob_AppOpen"
     override fun invoke(onAssign: (AdStatus<AppOpenAd>) -> Unit) {
         val adRequest = AdRequest.Builder().build()
-
-        AppOpenAd.load(context, id, adRequest,
+        AppOpenAd.load(
+            context, id, adRequest,
             object : AppOpenAdLoadCallback() {
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     super.onAdFailedToLoad(error)
@@ -24,7 +27,7 @@ class GoogleAppOpenAdBuilder(private val context: Context, private val id: Strin
                     super.onAdLoaded(openAd)
                     onAssign(AdStatus.Loaded(openAd))
                     openAd.setOnPaidEventListener { adValue ->
-
+                        onPaid?.invoke(adValue)
                     }
                 }
             })
