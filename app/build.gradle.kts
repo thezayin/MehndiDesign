@@ -34,6 +34,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -44,6 +45,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        dataBinding = true
         compose = true
     }
     composeOptions {
@@ -57,6 +59,18 @@ android {
 }
 
 dependencies {
+    implementation(project(":ads"))
+    implementation(project(":core"))
+    implementation(project(":categories"))
+    implementation(project(":entities"))
+    implementation(project(":framework"))
+    implementation(project(":analytics"))
+    implementation(project(":common"))
+    implementation(project(":di"))
+    implementation(project(":home"))
+    implementation(project(":databases"))
+    implementation(project(":preview"))
+    implementation(project(":like"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -104,23 +118,36 @@ dependencies {
     implementation(libs.firebase.inappmessaging.display)
     implementation(libs.firebase.config)
 
-    implementation(libs.slf4j.api)
-    implementation(libs.slf4j.simple)
-    implementation (libs.androidx.work.runtime)
-
-    // unsplash api
-    implementation (libs.unsplash.photopicker.android)
+    implementation(libs.androidx.work.runtime)
 
     //room database
-    implementation (libs.androidx.room.ktx)
-    ksp (libs.androidx.room.compiler)
-    implementation (libs.androidx.room.paging)
-    implementation (libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.room.runtime)
 
     //coil
     implementation(libs.coil.compose)
 
     //paging
-    implementation (libs.androidx.paging.compose)
-    implementation (libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime)
+
+    //Supabase
+    implementation(platform("io.github.jan-tennert.supabase:bom:2.5.2"))
+    implementation("io.github.jan-tennert.supabase:postgrest-kt")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt")
+    implementation("io.github.jan-tennert.supabase:realtime-kt")
+
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:0.7.6")
+    implementation(platform("io.github.jan-tennert.supabase:bom:2.5.2"))
+    implementation("io.github.jan-tennert.supabase:postgrest-kt")
+    implementation("io.ktor:ktor-client-android:2.3.11")
+    implementation("io.ktor:ktor-client-cio:2.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0-RC")
+    implementation ("com.github.anrwatchdog:anrwatchdog:1.4.0")
+
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+    implementation("io.github.farimarwat:grizzly:2.1")
+
 }
