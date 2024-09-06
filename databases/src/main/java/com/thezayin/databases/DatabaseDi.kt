@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 
 fun provideDatabase(context: Context) =
-    Room.databaseBuilder(context, AppDatabase::class.java, "unsplash_database")
+    Room.databaseBuilder(context, AppDatabase::class.java, "mehndi_database")
         .allowMainThreadQueries()
         .fallbackToDestructiveMigration()
         .build()
@@ -21,5 +21,5 @@ fun provideBridalDao(database: AppDatabase) = database.bridalDao()
 fun provideTikkiDao(database: AppDatabase) = database.tikkiDao()
 fun provideFootDao(database: AppDatabase) = database.footDao()
 fun provideIndoDao(database: AppDatabase) = database.indoDao()
-fun provideLikeDao(database: AppDatabase) = database.likeDao()
+fun provideFavouriteDao(database: AppDatabase) = database.favouriteDao()
 

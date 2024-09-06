@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="semi_black">#B3000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="ad_container_color">#F5F5F5</color>
+    <color name="ad_button_text_color">#FFFFFF</color>
+    <color name="ad_text_color">#FF000000</color>
+    <color name="ad_button_color">#8c52fe</color>
+    <color name="ad_tag_text_color">#F5F5F5</color>
+    <color name="ad_tag_color">#6FC8FB</color>
+
+    <color name="green_level_1">#015c4b</color>
+    <color name="icon_color">#000000</color>
+    <color name="background">#B3FFFFFF</color>
+    <color name="dialog_button_color">#122f51</color>
+    <color name="text_color">#485054</color>
+    <color name="green">#069952</color>
+    <color name="red">#E62E2E</color>
+    <color name="transparent">#00000000</color>
+
+    //blur list background
+    <color name="blur_background">#80000000</color>
+    <color name="card_background">#F5F5F5</color>
+    <color name="blur_background_text">#F5F5F5</color>
+</resources>

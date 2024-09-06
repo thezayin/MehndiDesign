@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.thezayin.ads"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -39,14 +39,15 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
-
+    implementation(project(":core:drawable"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
+    implementation("androidx.cardview:cardview:1.0.0")
 
     implementation(libs.user.messaging.platform)
     api(libs.play.services.ads)

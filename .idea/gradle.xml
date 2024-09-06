@@ -13,15 +13,30 @@
             <option value="$PROJECT_DIR$/analytics" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/categories" />
-            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/categories/data" />
+            <option value="$PROJECT_DIR$/categories/domain" />
+            <option value="$PROJECT_DIR$/categories/presentation" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/di" />
+            <option value="$PROJECT_DIR$/core/dialogs" />
+            <option value="$PROJECT_DIR$/core/drawable" />
+            <option value="$PROJECT_DIR$/core/entities" />
+            <option value="$PROJECT_DIR$/core/framework" />
             <option value="$PROJECT_DIR$/databases" />
-            <option value="$PROJECT_DIR$/di" />
-            <option value="$PROJECT_DIR$/entities" />
-            <option value="$PROJECT_DIR$/framework" />
+            <option value="$PROJECT_DIR$/favourite" />
+            <option value="$PROJECT_DIR$/favourite/data" />
+            <option value="$PROJECT_DIR$/favourite/domain" />
+            <option value="$PROJECT_DIR$/favourite/presentation" />
             <option value="$PROJECT_DIR$/home" />
-            <option value="$PROJECT_DIR$/like" />
-            <option value="$PROJECT_DIR$/preview" />
+            <option value="$PROJECT_DIR$/home/data" />
+            <option value="$PROJECT_DIR$/home/domain" />
+            <option value="$PROJECT_DIR$/home/presentation" />
+            <option value="$PROJECT_DIR$/previews" />
+            <option value="$PROJECT_DIR$/previews/data" />
+            <option value="$PROJECT_DIR$/previews/domain" />
+            <option value="$PROJECT_DIR$/previews/presentation" />
+            <option value="$PROJECT_DIR$/setting" />
+            <option value="$PROJECT_DIR$/splash" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
