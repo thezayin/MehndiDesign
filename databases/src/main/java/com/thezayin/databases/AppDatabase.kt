@@ -2,17 +2,19 @@ package com.thezayin.databases
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.thezayin.categories.data.local.dao.ArabicDao
-import com.thezayin.categories.data.local.dao.BridalDao
-import com.thezayin.categories.data.local.dao.ClassicDao
-import com.thezayin.categories.data.local.dao.FingerDao
-import com.thezayin.categories.data.local.dao.FootDao
-import com.thezayin.categories.data.local.dao.IndianDao
-import com.thezayin.categories.data.local.dao.IndoDao
-import com.thezayin.categories.data.local.dao.MoroccanDao
-import com.thezayin.categories.data.local.dao.PakistaniDao
-import com.thezayin.categories.data.local.dao.TattooDao
-import com.thezayin.categories.data.local.dao.TikkiDao
+import com.thezayin.data.dao.FavouriteDao
+import com.thezayin.data.local.dao.ArabicDao
+import com.thezayin.data.local.dao.BridalDao
+import com.thezayin.data.local.dao.ClassicDao
+import com.thezayin.data.local.dao.FingerDao
+import com.thezayin.data.local.dao.FootDao
+import com.thezayin.data.local.dao.HomeImageDao
+import com.thezayin.data.local.dao.IndianDao
+import com.thezayin.data.local.dao.IndoDao
+import com.thezayin.data.local.dao.MoroccanDao
+import com.thezayin.data.local.dao.PakistaniDao
+import com.thezayin.data.local.dao.TattooDao
+import com.thezayin.data.local.dao.TikkiDao
 import com.thezayin.entities.ArabicModel
 import com.thezayin.entities.BridalModel
 import com.thezayin.entities.ClassicModel
@@ -26,8 +28,7 @@ import com.thezayin.entities.MoroccanModel
 import com.thezayin.entities.PakistaniModel
 import com.thezayin.entities.TattooModel
 import com.thezayin.entities.TikkiModel
-import com.thezayin.home.data.local.dao.HomeImageDao
-import com.thezayin.like.data.dao.LikeDao
+
 
 @Database(
     entities = [
@@ -45,7 +46,7 @@ import com.thezayin.like.data.dao.LikeDao
         PakistaniModel::class,
         LikeImageModel::class
     ],
-    version = 8,
+    version = 9,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -61,5 +62,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun tikkiDao(): TikkiDao
     abstract fun indoDao(): IndoDao
     abstract fun footDao(): FootDao
-    abstract fun likeDao(): LikeDao
+    abstract fun favouriteDao(): FavouriteDao
 }
