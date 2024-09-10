@@ -34,11 +34,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:drawable"))
-    implementation(project(":core:entities"))
+    implementation(project(":common:values"))
+    implementation(project(":databases"))
     implementation(project(":core:framework"))
     implementation(project(":analytics"))
-    implementation(project(":databases"))
     implementation(project(":ads"))
 
     implementation(project(":splash"))

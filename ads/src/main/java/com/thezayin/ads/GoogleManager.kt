@@ -1,5 +1,6 @@
 package com.thezayin.ads
 
+import android.app.Activity
 import android.content.Context
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -8,56 +9,77 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd
 import com.thezayin.ads.builders.GoogleAppOpenAdBuilder
 import com.thezayin.ads.builders.GoogleInterstitialAdBuilder
 import com.thezayin.ads.builders.GoogleNativeAdBuilder
 import com.thezayin.ads.builders.GoogleRewardedAdBuilder
+import com.thezayin.ads.builders.GoogleRewardedInterstitialAdBuilder
 import com.thezayin.ads.ump.ConsentManager
 import com.thezayin.ads.utils.AdUnit
-import timber.log.Timber
+import com.thezayin.analytics.analytics.Analytics
+import com.thezayin.analytics.events.AnalyticsEvent
 
 class GoogleManager(
     private val context: Context,
-    private val consentManager: ConsentManager
+    private val consentManager: ConsentManager,
+    private val analytics: Analytics
+
 ) {
-    private var googleNative: GoogleAd<NativeAd>? = null
+    private val debug get() = BuildConfig.DEBUG
     private var googleInterAd: GoogleAd<InterstitialAd>? = null
     private var googleAppOpen: GoogleAd<AppOpenAd>? = null
-    private var googleRewarded: GoogleAd<RewardedAd>? = null
-    private val debug get() = BuildConfig.DEBUG
+    private var googleNativeAd: GoogleAd<NativeAd>? = null
+    private var googleRewardedAd: GoogleAd<RewardedAd>? = null
+    private var googleRewardedInterstitialAd: GoogleAd<RewardedInterstitialAd>? = null
 
     private val testDeviceIds: List<String> = listOf(
-        AdRequest.DEVICE_ID_EMULATOR, "ADF56AE377E44EC02913140C18AA8725",
+        AdRequest.DEVICE_ID_EMULATOR, "990C1C4A58DB7FED6AF5D9A33E3DD1FF",//Samsung,
+        "65B571F43583ED2ABB211D2965BE3E11"
     )
 
-    fun init() {
+    fun init(activity: Activity) {
+        consentManager.getUserConsent(activity = activity,
+            onConsentGranted = { loadAds() },
+            onError = { loadAds() })
+    }
+
+    fun initOnLastConsent() = consentManager.ifCanRequestAds { loadAds() }
+
+    private fun loadAds() {
         MobileAds.initialize(context)
         if (debug) MobileAds.setRequestConfiguration(
             RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
         )
-        googleNative = ::GoogleNativeAdBuilder.from(AdUnit.native)
+
+        googleRewardedInterstitialAd =
+            ::GoogleRewardedInterstitialAdBuilder.from(AdUnit.rewardedInterstitial)
+        googleRewardedAd = ::GoogleRewardedAdBuilder.from(AdUnit.rewarded)
         googleInterAd = ::GoogleInterstitialAdBuilder.from(AdUnit.interstitial)
         googleAppOpen = ::GoogleAppOpenAdBuilder.from(AdUnit.appOpen)
-        googleRewarded = ::GoogleRewardedAdBuilder.from(AdUnit.rewarded)
+        googleNativeAd = ::GoogleNativeAdBuilder.from(AdUnit.native)
     }
 
-    private fun <T> ((Context, String) -> AdBuilder<T>).from(unit: AdUnit) = GoogleAd(
-        this(context, unit.resolve(debug))
+    private fun <T> ((Context, String, Analytics) -> AdBuilder<T>).from(unit: AdUnit) = GoogleAd(
+        this(context, unit.resolve(debug), analytics).withAnalytics()
     )
 
-    private fun <T> AdBuilder<T>.withAnalytics(): AdBuilder<T> = apply {
+    private fun <T> AdBuilder<T>.withAnalytics() = apply {
         onPaid {
-            Timber.tag("GoogleManager").d("onPaid: %s", it)
+            analytics.logEvent(
+                AnalyticsEvent.AdPaidEvent(
+                    event = "AdPaid",
+                    provider = platform,
+                    value = (it.valueMicros / 1000000.0).toString()
+                )
+            )
         }
     }
 
-    private fun <T : Any?> ifNotSubscribed(block: () -> T?): T? = runCatching {
-        return block()
-    }.getOrNull()
-
-    fun createRewardedInterstitialAd() = googleRewarded?.get()
-    fun createAppOpenAd() = googleAppOpen?.get()
-    fun createInterstitialAd() = googleInterAd?.get()
-    fun createNativeAd(): NativeAd? = googleNative?.get()
-    fun createRewardedAd() = googleRewarded?.get()
+    fun createRewardedInterstitialAd() = ifNotSubscribed { googleRewardedInterstitialAd?.get() }
+    fun createAppOpenAd() = ifNotSubscribed { googleAppOpen?.get() }
+    fun createInterstitialAd() = ifNotSubscribed { googleInterAd?.get() }
+    fun createNativeAd(): NativeAd? = ifNotSubscribed { googleNativeAd?.get() }
+    fun createRewardedAd() = ifNotSubscribed { googleRewardedAd?.get() }
+    private fun <T : Any?> ifNotSubscribed(block: () -> T?) = block()
 }

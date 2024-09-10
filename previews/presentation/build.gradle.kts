@@ -37,13 +37,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":previews:domain"))
+
     implementation(project(":favourite:domain"))
-    implementation(project(":core:entities"))
+    implementation(project(":databases"))
     implementation(project(":core:framework"))
-    implementation(project(":core:drawable"))
-    implementation(project(":core:dialogs"))
+    implementation(project(":common:values"))
+    implementation(project(":common:components"))
     implementation(project(":ads"))
+
+    implementation(project(":previews:domain"))
+    implementation(project(":previews:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -92,4 +92,11 @@ dependencies {
 
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.cardview:cardview:1.0.0")
+
+    //koin dependency injection
+    implementation(libs.koin.core)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.android)
+    testImplementation(libs.koin.test.junit4)
+    implementation(libs.koin.androidx.navigation)
 }

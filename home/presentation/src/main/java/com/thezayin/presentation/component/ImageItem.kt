@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.thezayin.values.R
 
 @Composable
 internal fun ImageItem(url: String, onClick: (String) -> Unit) {
@@ -50,12 +51,12 @@ internal fun ImageItem(url: String, onClick: (String) -> Unit) {
                     onError = { _, _ -> isLoading.value = false }
                 )
                 .build(),
-            error = painterResource(id = com.thezayin.drawable.R.drawable.ic_image_placeholder),
+            error = painterResource(id = R.drawable.ic_image_placeholder),
             contentDescription = "holder image",
         )
         if (isLoading.value) {
             CircularProgressIndicator(
-                color = colorResource(id = com.thezayin.drawable.R.color.black),
+                color = colorResource(id = R.color.black),
                 modifier = Modifier.wrapContentSize()
             )
         }

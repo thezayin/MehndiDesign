@@ -24,53 +24,68 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.thezayin.values.R
 
+/**
+ * Composable function for displaying a custom top bar with a back button, screen title, and an action button.
+ *
+ * @param modifier Modifier to be applied to the top bar.
+ * @param onBackClick Callback function to handle the back button click action.
+ * @param screenTitle Title to be displayed in the top bar.
+ */
 @Composable
 fun TopBar(
-    modifier: Modifier, onBackClick: () -> Unit, screenTitle: String
+    modifier: Modifier = Modifier,  // Default modifier allows flexibility
+    onBackClick: () -> Unit, screenTitle: String
 ) {
+    // Access the current activity context for displaying Toast messages
     val context = LocalContext.current as Activity
+
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 40.dp)
-            .padding(horizontal = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .padding(
+                top = 40.dp, start = 10.dp, end = 10.dp
+            ),  // Padding for top and horizontal space
+        horizontalArrangement = Arrangement.SpaceBetween,  // Space elements across the row
+        verticalAlignment = Alignment.CenterVertically  // Align items vertically in the center
     ) {
-        Image(
-            painter = painterResource(id = com.thezayin.drawable.R.drawable.ic_back),
-            contentDescription = null,
+        // Back Button (represented as an icon image)
+        Image(painter = painterResource(id = R.drawable.ic_back),
+            contentDescription = "Back Button",  // Added content description for accessibility
             modifier = Modifier
                 .size(30.dp)
-                .clickable {
-                    onBackClick()
-                },
+                .clickable { onBackClick() }  // Trigger the back click event
         )
+
+        // Screen Title
         Text(
             text = screenTitle,
-            color = colorResource(id = com.thezayin.drawable.R.color.text_color),
-            fontSize = 22.sp,
-            fontFamily = FontFamily(Font(com.thezayin.drawable.R.font.noto_sans_bold)),
+            color = colorResource(id = R.color.text_color),
+            fontSize = 22.sp,  // Set the font size for the title text
+            fontFamily = FontFamily(Font(R.font.noto_sans_bold)) // Custom font family
         )
+
+        // Action Button (with crown icon)
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Button(
                 onClick = {
+                    // Display a "Coming soon" toast message when clicked
                     Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
-                },
-                modifier = Modifier.padding(start = 10.dp),
-                shape = RoundedCornerShape(10.dp),
+                }, modifier = Modifier.padding(start = 10.dp),  // Padding between elements
+                shape = RoundedCornerShape(10.dp),  // Rounded corners for the button
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = com.thezayin.drawable.R.color.green_level_1)
+                    containerColor = colorResource(id = R.color.green_level_1)  // Button background color
                 )
             ) {
+                // Crown Icon within the Button
                 Image(
-                    painter = painterResource(id = com.thezayin.drawable.R.drawable.ic_crown),
-                    contentDescription = null,
+                    painter = painterResource(id = R.drawable.ic_crown),
+                    contentDescription = "Crown Icon",  // Added content description for accessibility
                     modifier = Modifier.size(25.dp),
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.Fit  // Scale the image to fit within the button
                 )
             }
         }

@@ -1,50 +1,82 @@
 package com.thezayin.data.repository
 
 import arrow.core.Either
-import com.thezayin.data.dao.FavouriteDao
+import com.thezayin.databases.dao.FavouriteDao
+import com.thezayin.databases.models.LikeImageModel
 import com.thezayin.domain.repository.FavouriteRepository
-import com.thezayin.entities.LikeImageModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * Implementation of [FavouriteRepository] for managing favorite images using [FavouriteDao].
+ *
+ * @param dao The Data Access Object for interacting with the favorite images database.
+ */
 class FavouriteRepositoryImpl(private val dao: FavouriteDao) : FavouriteRepository {
+
+    /**
+     * Retrieves all favorite images from the database.
+     *
+     * @return A [Flow] emitting [Either] containing either a list of [LikeImageModel] or an [Exception].
+     */
     override fun getAllImages(): Flow<Either<Exception, List<LikeImageModel>>> = flow {
         try {
-            val list = dao.getAllImages()
-            emit(Either.Right(list))
+            // Fetch all favorite images from the DAO
+            val images = dao.getAllImages()
+            emit(Either.Right(images))
         } catch (e: Exception) {
+            // Emit an error if an exception occurs
             emit(Either.Left(e))
         }
     }
 
-    override fun insertImages(url: String): Flow<Either<Exception, Long>> = flow {
+    /**
+     * Adds a new image to the favorites list.
+     *
+     * @param url The URL of the image to be added.
+     * @return A [Flow] emitting [Either] containing either the ID of the inserted image or an [Exception].
+     */
+    override fun addImage(url: String): Flow<Either<Exception, Long>> = flow {
         try {
-            val row = dao.insertImages(
-                LikeImageModel(
-                    URL = url
-                )
-            )
-
-            emit(Either.Right(row))
+            // Insert the new image into the DAO
+            val id = dao.insertImages(LikeImageModel(URL = url))
+            emit(Either.Right(id))
         } catch (e: Exception) {
+            // Emit an error if an exception occurs
             emit(Either.Left(e))
         }
     }
 
-    override fun deleteImage(id: Int): Flow<Either<Exception, Int>> = flow {
+    /**
+     * Removes an image from the favorites list by its ID.
+     *
+     * @param id The ID of the image to be deleted.
+     * @return A [Flow] emitting [Either] containing either the number of rows affected or an [Exception].
+     */
+    override fun removeImage(id: Int): Flow<Either<Exception, Int>> = flow {
         try {
-            val row = dao.deleteImage(id)
-            emit(Either.Right(row))
+            // Delete the image from the DAO
+            val affectedRows = dao.deleteImage(id)
+            emit(Either.Right(affectedRows))
         } catch (e: Exception) {
-            Either.Left(e)
+            // Emit an error if an exception occurs
+            emit(Either.Left(e))
         }
     }
 
-    override fun checkImage(url: String): Flow<Either<Exception, Boolean>> = flow {
+    /**
+     * Checks if an image is already in the favorites list.
+     *
+     * @param url The URL of the image to check.
+     * @return A [Flow] emitting [Either] containing either a boolean indicating existence or an [Exception].
+     */
+    override fun isImageFavorite(url: String): Flow<Either<Exception, Boolean>> = flow {
         try {
-            val isExist = dao.checkImage(url)
-          emit(Either.Right(isExist))
+            // Check if the image exists in the DAO
+            val exists = dao.checkImage(url)
+            emit(Either.Right(exists))
         } catch (e: Exception) {
+            // Emit an error if an exception occurs
             emit(Either.Left(e))
         }
     }

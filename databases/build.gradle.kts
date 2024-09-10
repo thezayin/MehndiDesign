@@ -36,11 +36,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:entities"))
-    implementation(project(":favourite:data"))
-    implementation(project(":categories:data"))
-    implementation(project(":home:data"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -53,4 +48,11 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.kotlinx.serialization.json)
+
+    //koin dependency injection
+    implementation(libs.koin.core)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.android)
+    testImplementation(libs.koin.test.junit4)
+    implementation(libs.koin.androidx.navigation)
 }

@@ -21,47 +21,59 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thezayin.drawable.R
-import com.thezayin.entities.Categories
+import com.thezayin.domain.model.CategoriesModel
+import com.thezayin.values.R
 
+/**
+ * Displays a single category item within a card.
+ *
+ * @param modifier Modifier to be applied to the entire component.
+ * @param item The category item to display.
+ * @param onItemClick Callback function to be invoked when the item is clicked.
+ */
 @Composable
-internal fun CategoryItem(modifier: Modifier, item: Categories, onItemClick: (Categories) -> Unit) {
+internal fun CategoryItem(
+    modifier: Modifier = Modifier,
+    item: CategoriesModel,
+    onItemClick: (Int,String) -> Unit
+) {
     Box(
         modifier = modifier
-            .padding(end = 5.dp)
+            .padding(end = 8.dp)
             .width(200.dp)
             .height(120.dp)
-            .clickable {
-                onItemClick(item)
-            }
-            .background(color = colorResource(id = R.color.transparent)),
+            .clickable { item.name?.let { onItemClick(item.id, it) } }
+            .background(color = colorResource(id = R.color.transparent))
     ) {
-        Card(modifier = Modifier.fillMaxSize()) {
+        Card(
+            modifier = Modifier.fillMaxSize(),
+            elevation = CardDefaults.cardElevation(4.dp)
+        ) {
             Image(
-                painter = painterResource(id = item.icon!!),
-                contentDescription = "",
+                painter = painterResource(id = item.iconResId ?: R.drawable.ic_ps),
+                contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds
+                contentScale = ContentScale.Crop
             )
         }
+
         Card(
             modifier = Modifier
                 .fillMaxSize(),
-            colors = CardDefaults.cardColors(
-                containerColor = colorResource(id = R.color.blur_background),
-            )
+            colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.blur_background)),
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
             ) {
                 Text(
-                    text = item.title!!,
+                    text = item.name ?: "No Title",
                     color = colorResource(id = R.color.white),
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(8.dp)
@@ -69,4 +81,16 @@ internal fun CategoryItem(modifier: Modifier, item: Categories, onItemClick: (Ca
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CategoryItemPreview() {
+    CategoryItem(
+        item = CategoriesModel(
+            id = 1,
+            name = "Category",
+            iconResId = R.drawable.ic_ps
+        )
+    ) { _, _ -> }
 }

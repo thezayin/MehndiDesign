@@ -39,15 +39,17 @@ android {
 
 dependencies {
 
-    implementation(project(":core:drawable"))
+    implementation(project(":common:values"))
+    implementation(project(":analytics"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation ("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
-    implementation("androidx.cardview:cardview:1.0.0")
+    implementation (libs.androidx.constraintlayout)
+    implementation(libs.androidx.cardview)
 
     implementation(libs.user.messaging.platform)
     api(libs.play.services.ads)

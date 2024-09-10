@@ -41,8 +41,8 @@ android {
 
 dependencies {
     implementation(project(":ads"))
-    implementation(project(":core:drawable"))
-    implementation(project(":core:dialogs"))
+    implementation(project(":common:values"))
+    implementation(project(":common:components"))
     implementation(project(":core:framework"))
 
     implementation(libs.androidx.core.ktx)

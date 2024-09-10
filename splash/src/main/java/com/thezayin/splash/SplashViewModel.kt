@@ -1,25 +1,17 @@
 package com.thezayin.splash
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.thezayin.framework.remote.RemoteConfig
 
+/**
+ * ViewModel for the splash screen.
+ * It manages interactions with Google Ad Manager and Remote Config during the splash screen phase.
+ *
+ * @param googleManager Handles Google Ads functionality, such as app open ads.
+ * @param remoteConfig Manages configuration settings fetched remotely for dynamic behavior.
+ */
 class SplashViewModel(
     val googleManager: GoogleManager,
-) : ViewModel() {
-
-    var nativeAd = mutableStateOf<NativeAd?>(null)
-        private set
-
-    fun getNativeAd() = viewModelScope.launch {
-        nativeAd.value = googleManager.createNativeAd().apply {
-        } ?: run {
-            delay(3000)
-            googleManager.createNativeAd()
-        }
-    }
-}
+    val remoteConfig: RemoteConfig
+) : ViewModel()

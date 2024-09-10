@@ -37,10 +37,13 @@ android {
 }
 
 dependencies {
-   implementation(project(":core:drawable"))
-    implementation(project(":core:entities"))
+    implementation(project(":ads"))
     implementation(project(":core:framework"))
-    implementation(project(":core:dialogs"))
+    implementation(project(":common:components"))
+    implementation(project(":common:values"))
+    implementation(project(":databases"))
+
+    implementation(project(":favourite:data"))
     implementation(project(":favourite:domain"))
 
     implementation(libs.androidx.core.ktx)
@@ -52,7 +55,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.coil.compose)
-    implementation(project(":ads"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -6,68 +6,130 @@ import androidx.lifecycle.viewModelScope
 import arrow.core.Either
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
+import com.thezayin.databases.models.LikeImageModel
 import com.thezayin.domain.usecase.FavouriteImages
-import com.thezayin.entities.GetErrorState
-import com.thezayin.entities.GetLoadingState
-import com.thezayin.entities.LikeImageModel
+import com.thezayin.presentation.events.FavouriteEvents
+import com.thezayin.presentation.state.FavouriteState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing the state and events of the Favourite screen.
+ *
+ * @property googleManager Manages Google ads.
+ * @property FavouriteImages Use case for fetching favourite images.
+ */
 class FavouriteViewModel(
     private val googleManager: GoogleManager,
-    private val favouriteImages: FavouriteImages,
+    private val favouriteImagesUseCase: FavouriteImages,
 ) : ViewModel() {
-    private val _imagesUrl = MutableStateFlow(ImagesUrl())
-    val imagesUrl = _imagesUrl.asStateFlow()
 
+    private val _uiState = MutableStateFlow(FavouriteState())
+    val uiState = _uiState.asStateFlow()
 
-    private val _isQueryError = MutableStateFlow(GetErrorState())
-    val isQueryError = _isQueryError.asStateFlow()
-
-    private val _isLoading = MutableStateFlow(GetLoadingState())
-    val isLoading = _isLoading.asStateFlow()
-
-    var nativeAd = mutableStateOf<NativeAd?>(null)
-        private set
+     var currentNativeAd = mutableStateOf<NativeAd?>(null)
 
     init {
-        fetchAllImages()
+        loadFavouriteImages()
     }
 
-    fun getNativeAd() = viewModelScope.launch {
-        nativeAd.value = googleManager.createNativeAd().apply {
-        } ?: run {
-            delay(3000)
-            googleManager.createNativeAd()
-        }
-    }
+    /**
+     * Handles various events related to the Favourite screen and updates the state.
+     *
+     * @param event The event to handle.
+     */
+    private fun handleEvent(event: FavouriteEvents) {
+        when (event) {
+            is FavouriteEvents.ErrorMessage -> {
+                _uiState.update { it.copy(errorMessage = event.errorMessage) }
+            }
 
-    private fun fetchAllImages() = viewModelScope.launch {
-        favouriteImages().collect { response ->
-            when (response) {
-                is Either.Right -> {
-                    _imagesUrl.update {
-                        it.copy(list = response.value)
-                    }
-                }
+            is FavouriteEvents.GetImages -> {
+                _uiState.update { it.copy(list = event.list) }
+            }
 
-                is Either.Left -> {
-                    _isQueryError.update { errorState ->
-                        errorState.copy(
-                            isError = true,
-                            errorMessage = response.value.message ?: "An error occurred"
-                        )
-                    }
-                }
+            FavouriteEvents.HideLoading -> {
+                _uiState.update { it.copy(isLoading = false) }
+            }
+
+            FavouriteEvents.ShowErrorDialog -> {
+                _uiState.update { it.copy(errorDialog = true) }
             }
         }
     }
 
+    /**
+     * Fetches a native ad and updates the current ad state.
+     */
+    fun loadNativeAd() = viewModelScope.launch {
+        currentNativeAd.value = googleManager.createNativeAd().apply {
+            if (this == null) {
+                delay(3000)
+                currentNativeAd.value = googleManager.createNativeAd()
+            }
+        }
+    }
 
-    data class ImagesUrl(
-        val list: List<LikeImageModel> = emptyList()
-    )
+    /**
+     * Fetches all favourite images and handles the result.
+     */
+    private fun loadFavouriteImages() = viewModelScope.launch {
+        favouriteImagesUseCase()
+            .catch { exception ->
+                // Handle the exception by showing an error message and dialog
+                showError(exception.localizedMessage ?: "An unknown error occurred")
+                showErrorDialog()
+                hideLoading()
+            }
+            .collect { result ->
+                when (result) {
+                    is Either.Right -> {
+                        updateImages(result.value)
+                        delay(3000) // Optional delay to simulate loading
+                        hideLoading()
+                    }
+
+                    is Either.Left -> {
+                        showErrorDialog()
+                        hideLoading()
+                    }
+                }
+            }
+    }
+
+    /**
+     * Updates the state with a new list of images.
+     *
+     * @param images The list of favourite images.
+     */
+    private fun updateImages(images: List<LikeImageModel>) {
+        handleEvent(FavouriteEvents.GetImages(images))
+    }
+
+    /**
+     * Updates the state to hide the loading indicator.
+     */
+    private fun hideLoading() {
+        handleEvent(FavouriteEvents.HideLoading)
+    }
+
+    /**
+     * Updates the state to show an error dialog.
+     */
+    private fun showErrorDialog() {
+        handleEvent(FavouriteEvents.ShowErrorDialog)
+    }
+
+    /**
+     * Updates the state with an error message.
+     *
+     * @param message The error message to display.
+     */
+    private fun showError(message: String) {
+        handleEvent(FavouriteEvents.ErrorMessage(message))
+    }
 }
