@@ -12,30 +12,44 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.thezayin.entities.PreviewMenu
+import com.thezayin.domain.model.PreviewMenu
 
+/**
+ * Composable function to display an image preview with a set of menu options at the bottom.
+ *
+ * @param imageUrl The URL of the image to be displayed.
+ * @param menuItems A list of [PreviewMenu] items to be shown in a menu below the image.
+ * @param onMenuItemClick Callback function to handle menu item clicks.
+ */
 @Composable
-internal fun ImagePreview(url: String, items: List<PreviewMenu>, callback: (Int) -> Unit) {
+internal fun ImagePreview(
+    imageUrl: String,
+    menuItems: List<PreviewMenu>,
+    onMenuItemClick: (Int) -> Unit
+) {
     Box(
         modifier = Modifier
             .padding(horizontal = 10.dp)
             .fillMaxSize()
     ) {
+        // Display the image using Coil's AsyncImage composable
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Fit,  // Fit the image within the available space
             model = ImageRequest.Builder(LocalContext.current)
-                .data(url)
+                .data(imageUrl)
                 .allowHardware(false)
                 .build(),
-            placeholder = painterResource(id = com.thezayin.drawable.R.drawable.ic_image_placeholder),
-            error = painterResource(id = com.thezayin.drawable.R.drawable.ic_image_placeholder),
-            contentDescription = "holder image",
+            placeholder = painterResource(id = com.thezayin.values.R.drawable.ic_image_placeholder),  // Placeholder image while loading
+            error = painterResource(id = com.thezayin.values.R.drawable.ic_image_placeholder),  // Error image if loading fails
+            contentDescription = "Preview image"  // Accessibility description
         )
-        PreviewMenu(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            items = items,
-            callback = callback
+
+        // Display the menu items at the bottom of the image
+        PreviewMenuRow(
+            modifier = Modifier.align(Alignment.BottomCenter),  // Align menu at the bottom center
+            menuItems = menuItems,
+            onMenuItemClick = onMenuItemClick  // Pass the menu item click callback
         )
     }
 }

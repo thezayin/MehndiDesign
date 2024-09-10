@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:drawable"))
+    implementation(project(":common:values"))
     implementation(project(":core:framework"))
 
     implementation(libs.androidx.core.ktx)

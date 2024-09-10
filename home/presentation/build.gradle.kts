@@ -34,17 +34,19 @@ android {
     buildFeatures {
         compose = true
     }
-
 }
 
 dependencies {
     implementation(project(":ads"))
-    implementation(project(":core:drawable"))
-    implementation(project(":core:dialogs"))
+    implementation(project(":common:values"))
+    implementation(project(":common:components"))
     implementation(project(":core:framework"))
-    implementation(project(":home:domain"))
-    implementation(project(":core:entities"))
+
+    implementation(project(":databases"))
     implementation(project(":favourite:domain"))
+
+    implementation(project(":home:domain"))
+    implementation(project(":home:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -56,6 +58,7 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.coil.compose)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

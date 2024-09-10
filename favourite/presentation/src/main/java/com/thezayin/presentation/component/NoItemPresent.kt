@@ -19,10 +19,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thezayin.drawable.R
+import com.thezayin.values.R
 
+/**
+ * A composable function that displays a message when no items are present.
+ *
+ * @param modifier Modifier to apply to the Card.
+ */
 @Composable
-fun NoItemPresent(modifier: Modifier) {
+fun NoItemPresent(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .padding(horizontal = 25.dp)
@@ -60,6 +65,6 @@ fun NoItemPresent(modifier: Modifier) {
 
 @Composable
 @Preview
-fun NoItemPresent() {
-    NoItemPresent(Modifier)
+fun PreviewNoItemPresent() {
+    NoItemPresent()
 }

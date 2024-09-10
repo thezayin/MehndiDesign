@@ -1,27 +1,30 @@
 [versions]
 agp = "8.3.2"
 arrowStack = "1.2.0-RC"
+cardview = "1.0.0"
 coilComposeVersion = "2.6.0"
+constraintlayout = "2.1.4"
 gradle = "8.1.4"
-koin = "1.1.2"
+gradlePlugin = "1.5.0"
+koin = "4.0.0-RC2"
 koin-version = "3.6.0-wasm-alpha2"
-koinAndroid = "3.5.3"
-kotlin = "2.0.0"
+koinAndroid = "3.5.6"
+kotlin = "2.0.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 kotlinxSerializationJson = "1.7.1"
-ktorClientCio = "2.3.3"
-navigationCompose ="2.8.0-beta07"
+ktorClientCio = "2.3.12"
+navigationCompose = "2.8.0"
 orgSerlize = "2.0.10"
-lifecycle = "2.8.4"
-activityCompose = "1.9.1"
-composeBom = "2024.06.00"
-ktor = "2.3.11"
-ktorSerialize = "1.6.4"
+lifecycle = "2.8.5"
+activityCompose = "1.9.2"
+composeBom = "2024.09.00"
+ktor = "2.3.12"
+ktorSerialize = "2.3.12"
 googleServicesVersion = "4.4.2"
-firebaseAnalytics = "22.0.2"
+firebaseAnalytics = "22.1.0"
 firebaseCrashlytics = "19.0.3"
 firebaseCrashlyticsGradle = "3.0.2"
 firebasePerf = "21.0.1"
@@ -29,7 +32,7 @@ pagingCompose = "3.3.2"
 pagingRuntime = "3.3.2"
 perfPlugin = "1.4.2"
 firebaseAppdistributionGradle = "5.0.0"
-firebaseMessaging = "24.0.0"
+firebaseMessaging = "24.0.1"
 firebaseInappmessagingDisplay = "21.0.0"
 firebaseConfig = "22.0.0"
 picasso = "2.71828"
@@ -40,19 +43,25 @@ appcompat = "1.7.0"
 material = "1.12.0"
 timber = "5.0.1"
 userMessagingPlatform = "3.0.0"
-playServicesAds = "23.2.0"
+playServicesAds = "23.3.0"
 firebaseCommonKtx = "21.0.0"
-playServicesMeasurementApi = "22.0.2"
+playServicesMeasurementApi = "22.1.0"
 jetbrainsKotlinJvm = "1.9.22"
+sqlDelight = "2.0.1"
 
 [libraries]
+
+androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 arrow-core = { module = "io.arrow-kt:arrow-core" }
 arrow-stack = { module = "io.arrow-kt:arrow-stack", version.ref = "arrowStack" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
+
 gotrue-kt = { module = "io.github.jan-tennert.supabase:gotrue-kt" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -73,7 +82,7 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koin-version" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref ="koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin-version" }
 
@@ -113,12 +122,15 @@ androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
-
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 user-messaging-platform = { module = "com.google.android.ump:user-messaging-platform", version.ref = "userMessagingPlatform" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 play-services-measurement-api = { group = "com.google.android.gms", name = "play-services-measurement-api", version.ref = "playServicesMeasurementApi" }
+
+android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -127,3 +139,4 @@ serialization-json = { id = "org.jetbrains.kotlin.plugin.serialization", version
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }

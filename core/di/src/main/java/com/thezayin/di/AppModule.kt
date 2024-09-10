@@ -79,9 +79,7 @@ import com.thezayin.databases.provideTikkiDao
 import com.thezayin.domain.repository.CategoryRepository
 import com.thezayin.domain.repository.FavouriteMenuRepository
 import com.thezayin.domain.repository.FavouriteRepository
-import com.thezayin.domain.repository.GetCategoryImages
-import com.thezayin.domain.repository.GetRemoteCategories
-import com.thezayin.domain.repository.HomeCategoryRepository
+
 import com.thezayin.domain.repository.ImageRepository
 import com.thezayin.domain.repository.PreviewMenuRepository
 import com.thezayin.domain.repository.RemoteRepository
@@ -119,124 +117,6 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-val adModule = module {
-    single { ConsentManager(androidContext()) }
-    single { GoogleManager(androidContext(), get()) }
-}
-val analyticsHelperModule = module {
-    single { FirebaseAnalyticsHelper(get()) }
-    single { FirebaseAnalytics.getInstance(androidContext()) }
-    factoryOf(::StubAnalyticsHelper) bind AnalyticsHelper::class
-    factoryOf(::FirebaseAnalyticsHelper) bind AnalyticsHelper::class
-}
-val categoryModule = module {
-    viewModel {
-        CategoriesViewModel(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-        )
-    }
 
-    singleOf(::HomeCategoryRepositoryImpl) bind HomeCategoryRepository::class
-    singleOf(::GetRemoteCategoriesImpl) bind GetRemoteCategories::class
-    singleOf(::CategoryRepositoryImpl) bind CategoryRepository::class
-    singleOf(::GetCategoryImagesImpl) bind GetCategoryImages::class
-    singleOf(::GetCategoriesImpl) bind GetCategories::class
 
-    singleOf(::PakistaniImagesImpl) bind PakistaniImages::class
-    singleOf(::MoroccanImagesImpl) bind MoroccanImages::class
-    singleOf(::ClassicImagesImpl) bind ClassicImages::class
-    singleOf(::ArabicImagesImpl) bind ArabicImages::class
-    singleOf(::BridalImagesImpl) bind BridalImages::class
-    singleOf(::FingerImagesImpl) bind FingerImages::class
-    singleOf(::IndianImagesImpl) bind IndianImages::class
-    singleOf(::TattooImagesImpl) bind TattooImages::class
-    singleOf(::TikkiImagesImpl) bind TikkiImages::class
-    singleOf(::IndoImagesImpl) bind IndoImages::class
-    singleOf(::FootImagesImpl) bind FootImages::class
-
-    singleOf(::PakistaniRemoteImpl) bind PakistaniRemote::class
-    singleOf(::MoroccanRemoteImpl) bind MoroccanRemote::class
-    singleOf(::ClassicRemoteImpl) bind ClassicRemote::class
-    singleOf(::ArabicRemoteImpl) bind ArabicRemote::class
-    singleOf(::BridalRemoteImpl) bind BridalRemote::class
-    singleOf(::FingerRemoteImpl) bind FingerRemote::class
-    singleOf(::IndianRemoteImpl) bind IndianRemote::class
-    singleOf(::TattooRemoteImpl) bind TattooRemote::class
-    singleOf(::TikkiRemoteImpl) bind TikkiRemote::class
-    singleOf(::IndoRemoteImpl) bind IndoRemote::class
-    singleOf(::FootRemoteImpl) bind FootRemote::class
-}
-val databaseModule = module {
-    single { provideFavouriteDao(get()) }
-    single { provideFootDao(get()) }
-    single { provideIndoDao(get()) }
-    single { provideTikkiDao(get()) }
-    single { provideImageDao(get()) }
-    single { provideTattooDao(get()) }
-    single { provideFingerDao(get()) }
-    single { provideArabicDao(get()) }
-    single { provideBridalDao(get()) }
-    single { provideIndianDao(get()) }
-    single { provideClassicDao(get()) }
-    single { provideMoroccanDao(get()) }
-    single { providePakistaniDao(get()) }
-    single { provideDatabase(androidContext()) }
-}
-val favouriteModule = module {
-    singleOf(::FavouriteRepositoryImpl) bind FavouriteRepository::class
-    singleOf(::FavouriteImagesImpl) bind FavouriteImages::class
-    singleOf(::InsertImageImpl) bind InsertImage::class
-    singleOf(::DeleteImageImpl) bind DeleteImage::class
-    viewModelOf(::FavouriteViewModel)
-}
-
-val homeModule = module {
-    singleOf(::RemoteRepositoryImpl) bind RemoteRepository::class
-    singleOf(::ImageRepositoryImpl) bind ImageRepository::class
-    singleOf(::GetHomeImagesImpl) bind GetHomeImages::class
-    singleOf(::HomeCategoriesImpl) bind HomeCategories::class
-    singleOf(::FetchRemoteImpl) bind FetchRemote::class
-    singleOf(::SupabaseApiClient)
-    singleOf(::HomeViewModel)
-}
-
-val previewModule = module {
-    viewModelOf(::PreviewViewModel)
-    singleOf(::SaveImageImpl) bind SaveImage::class
-    singleOf(::PreviewItemsImpl) bind PreviewItems::class
-    singleOf(::FavouriteMenuListImpl) bind FavouriteMenuList::class
-    singleOf(::FavouriteMenuRepositoryImpl) bind FavouriteMenuRepository::class
-    singleOf(::SaveImageRepositoryImpl) bind SaveImageRepository::class
-    singleOf(::PreviewMenuRepositoryImpl) bind PreviewMenuRepository::class
-
-}
-val settingModule = module {
-    viewModelOf(::SettingViewModel)
-}
-val splashModule = module {
-    viewModelOf(::SplashViewModel)
-}
 

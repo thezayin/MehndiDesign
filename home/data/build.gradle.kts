@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.sqldelight)
     id("com.google.devtools.ksp") version "2.0.10-1.0.24"
 }
 
@@ -34,10 +35,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:entities"))
     implementation(project(":core:framework"))
-    implementation(project(":core:drawable"))
+    implementation(project(":common:values"))
     implementation(project(":home:domain"))
+    implementation(project(":databases"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -54,4 +55,17 @@ dependencies {
     //paging
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.runtime)
+
+    // SQL Delight
+    implementation(libs.runtime)
+    implementation(libs.android.driver)
+}
+
+sqldelight {
+    databases {
+        create("HomeDatabase") {
+          packageName.set("com.thezayin.data")
+        }
+    }
+    linkSqlite.set(true)
 }

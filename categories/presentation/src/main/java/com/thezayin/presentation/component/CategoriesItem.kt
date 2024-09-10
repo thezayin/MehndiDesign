@@ -17,30 +17,46 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thezayin.drawable.R
-import com.thezayin.entities.Categories
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
+import com.thezayin.domain.model.CategoryModel
+import com.thezayin.values.R
 
 @Composable
-internal fun CategoriesItem(modifier: Modifier, item: Categories, onItemClick: (Categories) -> Unit) {
+internal fun CategoriesItem(
+    modifier: Modifier,
+    item: CategoryModel,
+    onItemClick: (Int, String?) -> Unit
+) {
     Box(
         modifier = modifier
             .padding(end = 5.dp)
             .width(200.dp)
             .height(120.dp)
             .clickable {
-                onItemClick(item)
+                onItemClick(
+                    item.id,
+                    item.title
+                )
             }
             .background(color = colorResource(id = R.color.transparent)),
     ) {
         Card(modifier = Modifier.fillMaxSize()) {
             Image(
-                painter = painterResource(id = item.icon!!),
+                painter = // Set the target size for the image
+                rememberAsyncImagePainter(ImageRequest.Builder(LocalContext.current).data(
+                    data = item.icon // Assuming item.icon is a drawable or URL
+                ).apply(block = fun ImageRequest.Builder.() {
+                    size(200, 120) // Set the target size for the image
+                }).build()
+                ),
                 contentDescription = "",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds

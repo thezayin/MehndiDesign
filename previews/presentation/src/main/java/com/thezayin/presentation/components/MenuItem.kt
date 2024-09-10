@@ -20,60 +20,54 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thezayin.entities.PreviewMenu
+import com.thezayin.domain.model.PreviewMenu
 
+/**
+ * Composable function to display a menu item in a card layout.
+ *
+ * @param menuItem The [PreviewMenu] item containing the data for the menu.
+ * @param onMenuItemClick Callback function to be invoked when the menu item is clicked.
+ */
 @Composable
 internal fun MenuItem(
-    item: PreviewMenu,
-    callback: (Int) -> Unit
+    menuItem: PreviewMenu,
+    onMenuItemClick: (Int) -> Unit
 ) {
     Card(
         modifier = Modifier
             .height(65.dp)
             .width(70.dp),
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(10.dp),  // Rounded corners for the card
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = com.thezayin.drawable.R.color.semi_black)
+            containerColor = colorResource(id = com.thezayin.values.R.color.semi_black)  // Background color for the card
         )
     ) {
         Column(
             modifier = Modifier
                 .clickable {
-                    callback(item.id)
+                    onMenuItemClick(menuItem.id)  // Trigger the callback when the item is clicked
                 }
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.Center,  // Center content vertically
+            horizontalAlignment = Alignment.CenterHorizontally  // Center content horizontally
         ) {
+            // Icon for the menu item
             Image(
-                painter = painterResource(id = item.icon),
-                contentDescription = "Home",
-                modifier = Modifier
-                    .size(25.dp),
-                contentScale = ContentScale.Inside
+                painter = painterResource(id = menuItem.icon),
+                contentDescription = menuItem.name,  // Accessibility description using the item name
+                modifier = Modifier.size(25.dp),  // Set the size of the icon
+                contentScale = ContentScale.Inside  // Scale the image to fit inside the available space
             )
+
+            // Name of the menu item
             Text(
-                text = item.name,
-                fontSize = 10.sp,
-                color = colorResource(id = com.thezayin.drawable.R.color.white),
-                fontFamily = FontFamily(Font(com.thezayin.drawable.R.font.noto_sans_regular))
+                text = menuItem.name,
+                fontSize = 10.sp,  // Set the font size for the text
+                color = colorResource(id = com.thezayin.values.R.color.white),  // Set the text color
+                fontFamily = FontFamily(Font(com.thezayin.values.R.font.noto_sans_regular))  // Set the font family
             )
         }
     }
-}
-
-@Composable
-@Preview
-fun MenuItemPreview() {
-    MenuItem(
-        item = PreviewMenu(
-            id = 1,
-            name = "Home",
-            icon = com.thezayin.drawable.R.drawable.ic_download
-        ),
-        callback = {}
-    )
 }

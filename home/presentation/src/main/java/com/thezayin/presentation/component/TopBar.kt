@@ -2,14 +2,7 @@ package com.thezayin.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -20,7 +13,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.thezayin.values.R
 
+/**
+ * TopBar is a composable function that displays the top navigation bar with buttons for settings,
+ * premium access, and likes.
+ *
+ * @param settingCallback Callback to be invoked when the settings icon is clicked.
+ * @param likeCallback Callback to be invoked when the like icon is clicked.
+ * @param onPremiumClick Callback to be invoked when the premium button is clicked.
+ */
 @Composable
 internal fun TopBar(
     settingCallback: () -> Unit,
@@ -34,50 +36,52 @@ internal fun TopBar(
             .fillMaxWidth()
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Settings Icon
             Image(
-                painter = painterResource(id = com.thezayin.drawable.R.drawable.ic_menu),
-                contentDescription = null,
+                painter = painterResource(id = R.drawable.ic_menu),
+                contentDescription = "Settings",
                 modifier = Modifier
                     .size(35.dp)
-                    .clickable {
-                        settingCallback()
-                    }
+                    .clickable { settingCallback() }
             )
+
             Spacer(
                 modifier = Modifier
                     .width(8.dp)
                     .weight(1f)
             )
+
+            // Row containing Premium Button and Like Icon
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Premium Button
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { onPremiumClick() },
                     modifier = Modifier.padding(start = 10.dp),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = com.thezayin.drawable.R.color.green_level_1)
+                        containerColor = colorResource(id = R.color.green_level_1)
                     )
                 ) {
                     Image(
-                        painter = painterResource(id = com.thezayin.drawable.R.drawable.ic_crown),
-                        contentDescription = null,
+                        painter = painterResource(id = R.drawable.ic_crown),
+                        contentDescription = "Premium",
                         modifier = Modifier.size(25.dp),
                         contentScale = ContentScale.Fit
                     )
                 }
+
+                // Like Icon
                 Image(
-                    painter = painterResource(id = com.thezayin.drawable.R.drawable.ic_like_filled),
-                    contentDescription = null,
+                    painter = painterResource(id = R.drawable.ic_like_filled),
+                    contentDescription = "Like",
                     modifier = Modifier
-                        .clickable {
-                            likeCallback()
-                        }
+                        .clickable { likeCallback() }
                         .padding(start = 10.dp)
                         .size(45.dp),
                     contentScale = ContentScale.Fit

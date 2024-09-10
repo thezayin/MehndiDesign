@@ -56,32 +56,18 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:drawable"))
-    implementation(project(":core:entities"))
-    implementation(project(":core:di"))
-    implementation(project(":core:framework"))
+    implementation(project(":common:values"))
     implementation(project(":analytics"))
-    implementation(project(":databases"))
     implementation(project(":ads"))
-
+    implementation(project(":databases"))
+    implementation(project(":core:framework"))
     implementation(project(":splash"))
     implementation(project(":setting"))
-
-    implementation(project(":previews:data"))
-    implementation(project(":previews:domain"))
     implementation(project(":previews:presentation"))
-
-    implementation(project(":home:data"))
-    implementation(project(":home:domain"))
     implementation(project(":home:presentation"))
-
-    implementation(project(":favourite:data"))
-    implementation(project(":favourite:domain"))
     implementation(project(":favourite:presentation"))
-
-    implementation(project(":categories:data"))
-    implementation(project(":categories:domain"))
     implementation(project(":categories:presentation"))
+    implementation(project(":categoryimage:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -105,6 +91,7 @@ dependencies {
     implementation(libs.koin.android)
     testImplementation(libs.koin.test.junit4)
     implementation(libs.koin.androidx.navigation)
+    implementation(libs.kotlinx.serialization.json)
 
     //firebase
     implementation(libs.firebase.analytics)

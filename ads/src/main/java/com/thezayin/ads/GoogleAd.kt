@@ -12,7 +12,8 @@ sealed interface AdStatus<out T> {
 abstract class AdBuilder<T> : ((AdStatus<T>) -> Unit) -> Unit {
     protected var onPaid: ((AdValue) -> Unit)? = null
     abstract val platform: String
-    fun onPaid(onPaid: (AdValue) -> Unit) {
+
+    fun onPaid(onPaid: ((AdValue) -> Unit)) {
         this.onPaid = onPaid
     }
 }

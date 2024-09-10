@@ -13,12 +13,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
-import com.thezayin.drawable.R
-import com.thezayin.entities.ImageModel
+import com.thezayin.databases.models.ImageModel
+import com.thezayin.values.R
 
 @Composable
 internal fun ImagesList(
-    items: LazyPagingItems<ImageModel>,
+    items: LazyPagingItems<ImageModel>?,
     modifier: Modifier,
     onClick: (String) -> Unit
 ) {
@@ -39,10 +39,11 @@ internal fun ImagesList(
             modifier = modifier
                 .fillMaxSize(),
         ) {
-            items(items.itemCount) {
-                items[it]?.let { model ->
+            items(items?.itemCount ?: 0) { index ->
+                val model = items?.get(index)
+                model?.let {
                     ImageItem(
-                        url = model.URL,
+                        url = it.URL,
                         onClick = onClick
                     )
                 }

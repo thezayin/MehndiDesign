@@ -33,8 +33,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":databases"))
     implementation(project(":core:framework"))
-    implementation(project(":core:entities"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

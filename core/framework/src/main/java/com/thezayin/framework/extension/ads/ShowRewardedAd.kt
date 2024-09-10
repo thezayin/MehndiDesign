@@ -13,14 +13,11 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.thezayin.ads.GoogleManager
-import com.thezayin.analytics.events.AnalyticsEvent
-import com.thezayin.analytics.helpers.AnalyticsHelper
 import timber.log.Timber
 
 fun showRewardedAd(
     googleManager: GoogleManager,
     context: Activity?,
-    analytics: AnalyticsHelper,
     callback: (RewardedAdStatus) -> Unit,
 ) {
     var admobAd: RewardedAd? = googleManager.createRewardedAd()
@@ -57,18 +54,6 @@ fun showRewardedAd(
             // Called when ad is dismissed.
             // Set the ad reference to null so you don't show the ad a second time.
             admobAd = null
-        }
-
-        override fun onAdImpression() {
-            super.onAdImpression()
-            analytics.logEvent(
-                AnalyticsEvent(
-                    type = AnalyticsEvent.Types.AD_IMPRESSION,
-                    extras = listOf(
-                        AnalyticsEvent.Param(AnalyticsEvent.ParamKeys.AD_TYPE, "appOpen ad"),
-                    ),
-                ),
-            )
         }
 
         override fun onAdFailedToShowFullScreenContent(p0: AdError) {
