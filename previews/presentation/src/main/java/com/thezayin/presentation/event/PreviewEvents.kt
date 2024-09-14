@@ -54,4 +54,16 @@ sealed interface PreviewEvents {
      * @param imageId The ID of the current image.
      */
     data class RetrieveImageId(val imageId: Int) : PreviewEvents
+
+    /**
+     * Event to indicate the start of an image save operation.
+     */
+    data object SaveImageStart : PreviewEvents
+
+    /**
+     * Event to indicate the completion of an image save operation.
+     *
+     * @param message The result message after saving the image.
+     */
+    data class SaveImageComplete(val message: String) : PreviewEvents
 }

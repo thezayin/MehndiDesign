@@ -1,6 +1,7 @@
 package com.thezayin.framework.extension.ads
 
 import android.app.Activity
+import android.util.Log
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.appopen.AppOpenAd
@@ -19,6 +20,7 @@ fun showAppOpenAd(
     }
 
     if (ad == null) {
+        Log.e("jejeAppOpenAd", "Ad is null")
         callBack?.invoke()
         return null
     }

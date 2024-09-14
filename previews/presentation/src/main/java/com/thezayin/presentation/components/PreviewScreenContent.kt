@@ -50,6 +50,8 @@ fun PreviewScreenContent(
     menuItems: List<PreviewMenu>,
     activity: Activity,
     showLoading: Boolean,
+    showLoadingAd: Boolean,
+    showBottomAd: Boolean,
     currentNativeAd: NativeAd?,
     imageExistsInFavorites: Boolean,
     imageSavedSuccess: Boolean,
@@ -83,7 +85,7 @@ fun PreviewScreenContent(
                 )
             },
             nativeAd = { fetchNativeAd() },
-            showAd = true
+            showAd = showLoadingAd
         )
     }
 
@@ -121,9 +123,13 @@ fun PreviewScreenContent(
         },
         bottomBar = {
             // Display a native ad at the bottom of the screen
-            GoogleNativeAd(
-                modifier = Modifier, style = GoogleNativeAdStyle.Small, nativeAd = currentNativeAd
-            )
+            if (showBottomAd) {
+                GoogleNativeAd(
+                    modifier = Modifier,
+                    style = GoogleNativeAdStyle.Small,
+                    nativeAd = currentNativeAd
+                )
+            }
         }
     ) { padding ->
         // Display the image and handle actions from the menu

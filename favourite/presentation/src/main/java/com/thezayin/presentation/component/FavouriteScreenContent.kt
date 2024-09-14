@@ -18,6 +18,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import com.google.android.gms.ads.nativead.NativeAd
+import com.thezayin.components.LoadingDialog
 import com.thezayin.databases.models.LikeImageModel
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
@@ -45,6 +46,8 @@ fun FavouriteScreenContent(
     isLoading: Boolean,
     nativeAd: NativeAd?,
     scope: CoroutineScope,
+    showNativeAd: Boolean,
+    adOnLoading: Boolean,
     list: List<LikeImageModel>,
     noItemVisible: MutableState<Boolean>,
     getNativeAd: () -> Unit,
@@ -74,7 +77,7 @@ fun FavouriteScreenContent(
 
     // Display a loading dialog with an ad while content is loading
     if (isLoading) {
-        com.thezayin.components.LoadingDialog(
+        LoadingDialog(
             ad = {
                 GoogleNativeAd(
                     modifier = Modifier
@@ -87,7 +90,7 @@ fun FavouriteScreenContent(
             nativeAd = {
                 getNativeAd()
             },
-            showAd = true
+            showAd = adOnLoading
         )
     }
 
@@ -105,11 +108,13 @@ fun FavouriteScreenContent(
             )
         },
         bottomBar = {
-            GoogleNativeAd(
-                modifier = Modifier,
-                style = GoogleNativeAdStyle.Small,
-                nativeAd = nativeAd
-            )
+            if (showNativeAd) {
+                GoogleNativeAd(
+                    modifier = Modifier,
+                    style = GoogleNativeAdStyle.Small,
+                    nativeAd = nativeAd
+                )
+            }
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {

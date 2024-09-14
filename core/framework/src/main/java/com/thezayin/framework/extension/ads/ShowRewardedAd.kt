@@ -8,6 +8,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.OnUserEarnedRewardListener
@@ -18,8 +19,16 @@ import timber.log.Timber
 fun showRewardedAd(
     googleManager: GoogleManager,
     context: Activity?,
+    showAd:Boolean,
     callback: (RewardedAdStatus) -> Unit,
 ) {
+
+    if (!showAd){
+       Timber.tag("Rewarded Ad Status").e("Ad is Disabled")
+        callback.invoke(RewardedAdStatus.AdNotAvailable)
+        return
+    }
+
     var admobAd: RewardedAd? = googleManager.createRewardedAd()
 
     if (context == null) {

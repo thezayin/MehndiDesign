@@ -2,7 +2,7 @@ package com.thezayin.splash
 
 import androidx.lifecycle.ViewModel
 import com.thezayin.ads.GoogleManager
-import com.thezayin.framework.remote.RemoteConfig
+import com.thezayin.framework.config.RemoteConfig
 
 /**
  * ViewModel for the splash screen.

@@ -12,6 +12,7 @@ import com.thezayin.domain.model.CategoriesModel
 import com.thezayin.domain.usecase.FetchRemote
 import com.thezayin.domain.usecase.GetHomeImages
 import com.thezayin.domain.usecase.HomeCategories
+import com.thezayin.framework.config.RemoteConfig
 import com.thezayin.framework.utils.Response
 import com.thezayin.presentation.event.HomeEvents
 import com.thezayin.presentation.state.HomeState
@@ -27,10 +28,11 @@ import kotlinx.coroutines.launch
  * ViewModel responsible for managing and processing data for the Home screen.
  */
 class HomeViewModel(
-    private val googleManager: GoogleManager,
+    val googleManager: GoogleManager,
     private val getHomeCategoriesUseCase: HomeCategories,
     private val getHomeImagesUseCase: GetHomeImages,
-    private val fetchRemoteUseCase: FetchRemote
+    private val fetchRemoteUseCase: FetchRemote,
+    val remoteConfig: RemoteConfig
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow(HomeState())
@@ -98,11 +100,13 @@ class HomeViewModel(
                     fetchHomeImages()
                     hideLoading()
                 }
+
                 is Response.Error -> {
                     hideLoading()
                     showErrorDialog()
                     handleError(response.e)
                 }
+
                 is Response.Loading -> {
                     showLoading()
                     hideErrorDialog()
@@ -122,11 +126,13 @@ class HomeViewModel(
                     delay(2000L)
                     hideLoading()
                 }
+
                 is Response.Error -> {
                     hideLoading()
                     showErrorDialog()
                     handleError(response.e)
                 }
+
                 is Response.Loading -> {
                     showLoading()
                     hideErrorDialog()

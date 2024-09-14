@@ -60,7 +60,10 @@ fun NavHost(navController: NavHostController) {
             CategoryImageScreen(
                 id = args.id ?: 0,
                 title = args.title ?: "",
-                onBackClick = { navController.navigateUp() }
+                onBackClick = { navController.navigateUp() },
+                onImageSelection = { url ->
+                    navController.navigate(PreviewScreenNav(url))
+                }
             )
         }
         // Favourite screen

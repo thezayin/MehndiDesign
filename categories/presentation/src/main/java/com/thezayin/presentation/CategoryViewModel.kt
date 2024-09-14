@@ -7,6 +7,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
 import com.thezayin.domain.model.CategoryModel
 import com.thezayin.domain.usecase.GetCategories
+import com.thezayin.framework.config.RemoteConfig
 import com.thezayin.framework.utils.Response
 import com.thezayin.presentation.event.CategoryEvent
 import com.thezayin.presentation.state.CategoryState
@@ -17,7 +18,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CategoryViewModel(
-    private val googleManager: GoogleManager,
+    val googleManager: GoogleManager,
+    val remoteConfig: RemoteConfig,
     private val getCategories: GetCategories,
 ) : ViewModel() {
 

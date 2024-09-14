@@ -22,6 +22,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.paging.compose.LazyPagingItems
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.components.ErrorQueryDialog
+import com.thezayin.components.LoadingDialog
 import com.thezayin.components.NetworkDialog
 import com.thezayin.databases.models.ImageModel
 import com.thezayin.domain.model.CategoriesModel
@@ -60,8 +61,10 @@ fun HomeContent(
     isLoading: Boolean,
     showError: Boolean,
     nativeAd: NativeAd?,
-    coroutineScope: CoroutineScope,
+    showBottomAd: Boolean,
+    showLoadingAd: Boolean,
     scrollState: LazyListState,
+    coroutineScope: CoroutineScope,
     categories: List<CategoriesModel>?,
     networkStatus: MutableState<Boolean>,
     imagePagingItems: LazyPagingItems<ImageModel>?,
@@ -117,7 +120,7 @@ fun HomeContent(
 
     // Display loading dialog with optional native ad
     if (isLoading) {
-        com.thezayin.components.LoadingDialog(
+       LoadingDialog(
             ad = {
                 GoogleNativeAd(
                     modifier = Modifier
@@ -128,7 +131,7 @@ fun HomeContent(
                 )
             },
             nativeAd = { fetchNativeAd() },
-            showAd = true
+            showAd = showLoadingAd
         )
     }
 
@@ -145,13 +148,15 @@ fun HomeContent(
             )
         },
         bottomBar = {
-            GoogleNativeAd(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                style = GoogleNativeAdStyle.Small,
-                nativeAd = nativeAd
-            )
+            if (showBottomAd) {
+                GoogleNativeAd(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    style = GoogleNativeAdStyle.Small,
+                    nativeAd = nativeAd
+                )
+            }
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
@@ -198,7 +203,7 @@ fun HomeContent(
                 ImagesList(
                     modifier = Modifier,
                     items = imagePagingItems,
-                    onClick = onImageClick
+                    onClick = onImageClick,
                 )
             }
         }
