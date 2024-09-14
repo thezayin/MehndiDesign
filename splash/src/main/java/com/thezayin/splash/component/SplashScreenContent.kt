@@ -4,17 +4,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -59,9 +57,11 @@ fun SplashScreenContent(
             shape = RoundedCornerShape(200.dp)  // Rounded circular card
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_second_logo),
+                painter = painterResource(id = R.drawable.ic_main),
                 contentDescription = null,  // No description as it's decorative
                 contentScale = ContentScale.FillBounds,  // Fill the card bounds
+                modifier = Modifier
+                    .size(200.dp),
             )
         }
 
@@ -74,34 +74,16 @@ fun SplashScreenContent(
                 .height(50.dp),  // Setting height for the row
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Icon inside a card
-            Card(
-                modifier = Modifier.padding(end = 10.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = colorResource(id = R.color.text_color)
-                )
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_hena),
-                    contentDescription = null,  // No description for this decorative icon
-                    contentScale = ContentScale.FillBounds,
-                    modifier = Modifier.size(40.dp)
-                )
-            }
-
-            // Spacer line between icon and text
-            Spacer(
-                modifier = Modifier
-                    .background(color = colorResource(id = R.color.text_color))
-                    .width(1.dp)
-                    .height(40.dp)
+            CircularProgressIndicator(
+                modifier = Modifier.size(25.dp),
+                color = colorResource(id = R.color.text_color),
             )
 
             // Text next to the icon
             Text(
-                text = "Mehndi Designs and Ideas",
+                text = "Loading the app...",
                 modifier = Modifier.padding(start = 10.dp),
-                fontSize = 14.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Medium,
                 color = colorResource(id = R.color.text_color)
             )

@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.components.ErrorQueryDialog
+import com.thezayin.components.LoadingDialog
 import com.thezayin.components.NetworkDialog
 import com.thezayin.domain.model.CategoryModel
 import com.thezayin.framework.lifecycles.ComposableLifecycle
@@ -30,6 +31,8 @@ fun CategoryScreenContent(
     isLoading: Boolean,
     nativeAd: NativeAd?,
     scope: CoroutineScope,
+    showBottomAd: Boolean,
+    showLoadingAd:Boolean,
     categories: List<CategoryModel>?,
     checkNetwork: MutableState<Boolean>,
     getNativeAd: () -> Unit,
@@ -38,7 +41,7 @@ fun CategoryScreenContent(
     onCategoryClick: (Int, String?) -> Unit
 ) {
     if (isLoading) {
-        com.thezayin.components.LoadingDialog(
+        LoadingDialog(
             ad = {
                 GoogleNativeAd(
                     modifier = Modifier
@@ -51,7 +54,7 @@ fun CategoryScreenContent(
             nativeAd = {
                 getNativeAd()
             },
-            showAd = true
+            showAd = showLoadingAd
         )
     }
 
@@ -99,11 +102,13 @@ fun CategoryScreenContent(
 
         },
         bottomBar = {
-            GoogleNativeAd(
-                modifier = Modifier,
-                style = GoogleNativeAdStyle.Small,
-                nativeAd = nativeAd
-            )
+            if (showBottomAd) {
+                GoogleNativeAd(
+                    modifier = Modifier,
+                    style = GoogleNativeAdStyle.Small,
+                    nativeAd = nativeAd
+                )
+            }
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {

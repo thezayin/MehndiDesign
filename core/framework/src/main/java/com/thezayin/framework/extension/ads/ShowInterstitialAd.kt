@@ -9,10 +9,12 @@ import com.thezayin.ads.GoogleManager
 fun showInterstitialAd(
     activity: Activity,
     manager: GoogleManager,
-    boolean: Boolean,
+    showAd: Boolean,
     callBack: (InterstitialAdStatus) -> Unit = {}
 ) {
-    if (!boolean) {
+
+
+    if (!showAd) {
         callBack(InterstitialAdStatus.AdNotAvailable)
         return
     }

@@ -14,6 +14,7 @@ import com.thezayin.domain.usecase.GetFavouriteMenuList
 import com.thezayin.domain.usecase.InsertImage
 import com.thezayin.domain.usecase.PreviewItems
 import com.thezayin.domain.usecase.SaveImage
+import com.thezayin.framework.config.RemoteConfig
 import com.thezayin.framework.utils.Response
 import com.thezayin.presentation.event.PreviewEvents
 import com.thezayin.presentation.state.PreviewUIState
@@ -29,7 +30,8 @@ import kotlinx.coroutines.launch
  */
 @Suppress("SameParameterValue")
 class PreviewViewModel(
-    private val googleManager: GoogleManager,
+    val googleManager: GoogleManager,
+    val remoteConfig: RemoteConfig,
     private val saveImage: SaveImage,
     private val menuItemsUseCase: PreviewItems,
     private val deleteImageUseCase: DeleteImage,
@@ -94,8 +96,55 @@ class PreviewViewModel(
             is PreviewEvents.RetrieveImageId -> {
                 _previewUIState.update { it.copy(imageId = event.imageId) }
             }
+
+            PreviewEvents.SaveImageStart -> {
+                _previewUIState.update { it.copy(isSaving = true, saveImageMessage = null) }
+            }
+
+            is PreviewEvents.SaveImageComplete -> {
+                _previewUIState.update {
+                    it.copy(
+                        isSaving = false,
+                        saveImageMessage = event.message
+                    )
+                }
+            }
         }
     }
+
+    /**
+     * Initiates the process to save an image from the provided URL.
+     */
+    fun saveImageFromUrl(url: String) = viewModelScope.launch {
+        _previewUIState.update { it.copy(isSaving = true, saveImageMessage = null) }
+
+        saveImage(url).collect { response ->
+            when (response) {
+                is Response.Loading -> {
+                    _previewUIState.update { it.copy(isSaving = true) }
+                }
+
+                is Response.Success -> {
+                    _previewUIState.update {
+                        it.copy(
+                            isSaving = false,
+                            saveImageMessage = "Image saved successfully!"
+                        )
+                    }
+                }
+
+                is Response.Error -> {
+                    _previewUIState.update {
+                        it.copy(
+                            isSaving = false,
+                            saveImageMessage = "Failed to save image: ${response.e}"
+                        )
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * Checks if the image exists in the list of favourite images.
@@ -283,5 +332,12 @@ class PreviewViewModel(
 
     private fun setImageId(imageId: Int) {
         handlePreviewUiEvents(PreviewEvents.RetrieveImageId(imageId))
+    }
+
+    /**
+     * Resets the save image message to null after displaying.
+     */
+    fun resetSaveImageMessage() {
+        _previewUIState.update { it.copy(saveImageMessage = null) }
     }
 }

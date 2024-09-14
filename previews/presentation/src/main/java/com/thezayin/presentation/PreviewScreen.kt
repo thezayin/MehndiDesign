@@ -6,6 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import com.thezayin.framework.extension.ads.showInterstitialAd
+import com.thezayin.framework.extension.ads.showRewardedAd
 import com.thezayin.presentation.components.PreviewScreenContent
 import org.koin.compose.koinInject
 
@@ -18,8 +20,7 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun PreviewScreen(
-    imageUrl: String,
-    onBackClick: () -> Unit
+    imageUrl: String, onBackClick: () -> Unit
 ) {
     // Inject the ViewModel using Koin
     val viewModel: PreviewViewModel = koinInject()
@@ -36,21 +37,59 @@ fun PreviewScreen(
     // Collect the current UI state from the ViewModel as a state object
     val uiState = viewModel.previewUIState.collectAsState().value
 
+    val googleManager = viewModel.googleManager
+    val remoteConfig = viewModel.remoteConfig.adConfigs
+    val showLoadingAd = remoteConfig.nativeAdOnPreviewLoading
+    val showBottomAd = remoteConfig.nativeAdOnPreviewScreen
+    val showAdOnBackPress = remoteConfig.adOnBackPress
+    val adOnImageLike = remoteConfig.adOnImageLike
+    val adOnImageRemove = remoteConfig.adOnImageRemove
+    val switchAdOnImageRemove = remoteConfig.interstitialToRewardedOnImageRemove
+    val switchAdOnImageLike = remoteConfig.interstitialToRewardedOnImageLike
     // Call the composable that handles the screen layout and behavior
-    PreviewScreenContent(
-        activity = activity,
+    PreviewScreenContent(activity = activity,
         imageId = uiState.imageId,
         imageUrl = imageUrl,
+        showLoadingAd = showLoadingAd,
+        showBottomAd = showBottomAd,
         menuItems = uiState.menuItems,
         showLoading = uiState.isLoading,
         currentNativeAd = nativeAdState.value,
         imageExistsInFavorites = uiState.isImageInFavorites,
         imageSavedSuccess = uiState.isLikeActionSuccessful,
         coroutineScope = coroutineScope,
-        onBackButtonClick = onBackClick,
+        onBackButtonClick = {
+            showInterstitialAd(activity = activity,
+                showAd = showAdOnBackPress,
+                manager = googleManager,
+                callBack = { onBackClick() })
+        },
         fetchNativeAd = { viewModel.loadNativeAd() },
-        removeImageFromFavorites = { viewModel.removeFavouriteImage(it) },
-        addImageToFavorites = { viewModel.addFavouriteImage(it) },
-        verifyImageExistenceInFavorites = { viewModel.checkIfImageExists(imageUrl) }
-    )
+        removeImageFromFavorites = { id ->
+            if (switchAdOnImageRemove) {
+                showRewardedAd(context = activity,
+                    showAd = adOnImageRemove,
+                    googleManager = googleManager,
+                    callback = { viewModel.removeFavouriteImage(id) })
+            } else {
+                showInterstitialAd(activity = activity,
+                    showAd = adOnImageRemove,
+                    manager = googleManager,
+                    callBack = { viewModel.removeFavouriteImage(id) })
+            }
+        },
+        addImageToFavorites = { image ->
+            if (switchAdOnImageLike) {
+                showRewardedAd(context = activity,
+                    showAd = adOnImageLike,
+                    googleManager = googleManager,
+                    callback = { viewModel.addFavouriteImage(image) })
+            } else {
+                showInterstitialAd(activity = activity,
+                    showAd = adOnImageLike,
+                    manager = googleManager,
+                    callBack = { viewModel.addFavouriteImage(image) })
+            }
+        },
+        verifyImageExistenceInFavorites = { viewModel.checkIfImageExists(imageUrl) })
 }

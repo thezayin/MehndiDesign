@@ -37,8 +37,12 @@ fun SplashScreen(onNavigate: () -> Unit) {
             checkNetwork.value = true
         } else {
             // If internet is available, show the app open ad after 3 seconds
-            delay(3000L)
-            showAppOpenAd(activity, viewModel.googleManager, true) {
+            delay(6000L)
+            showAppOpenAd(
+                activity,
+                viewModel.googleManager,
+                viewModel.remoteConfig.adConfigs.adOnSplashScreen
+            ) {
                 // Navigate to the next screen after the ad
                 onNavigate()
             }

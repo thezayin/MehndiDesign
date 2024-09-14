@@ -8,6 +8,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
 import com.thezayin.databases.models.LikeImageModel
 import com.thezayin.domain.usecase.FavouriteImages
+import com.thezayin.framework.config.RemoteConfig
 import com.thezayin.presentation.events.FavouriteEvents
 import com.thezayin.presentation.state.FavouriteState
 import kotlinx.coroutines.delay
@@ -24,7 +25,8 @@ import kotlinx.coroutines.launch
  * @property FavouriteImages Use case for fetching favourite images.
  */
 class FavouriteViewModel(
-    private val googleManager: GoogleManager,
+     val googleManager: GoogleManager,
+    val remoteConfig: RemoteConfig,
     private val favouriteImagesUseCase: FavouriteImages,
 ) : ViewModel() {
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
-import com.thezayin.framework.remote.RemoteConfig
+import com.thezayin.framework.config.RemoteConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

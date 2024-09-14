@@ -80,6 +80,7 @@ val categoryImageModule = module {
             get(),
             get(),
             get(),
+            get(),
         )
     }
     singleOf(::GetRemoteCategoriesImpl) bind GetRemoteCategories::class

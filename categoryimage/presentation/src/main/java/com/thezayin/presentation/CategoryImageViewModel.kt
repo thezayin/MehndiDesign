@@ -29,6 +29,7 @@ import com.thezayin.domain.usecase.TattooImages
 import com.thezayin.domain.usecase.TattooRemote
 import com.thezayin.domain.usecase.TikkiImages
 import com.thezayin.domain.usecase.TikkiRemote
+import com.thezayin.framework.config.RemoteConfig
 import com.thezayin.framework.utils.Response
 import com.thezayin.presentation.event.CategoryImageEvent
 import com.thezayin.presentation.state.CategoryImageState
@@ -41,7 +42,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CategoryImageViewModel(
-    private val googleManager: GoogleManager,
+    val googleManager: GoogleManager,
+    val remoteConfig: RemoteConfig,
     private val arabic: ArabicImages,
     private val bridal: BridalImages,
     private val classic: ClassicImages,

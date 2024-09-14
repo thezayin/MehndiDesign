@@ -35,6 +35,8 @@ fun CategoryImageContent(
     isLoading: Boolean,
     nativeAd: NativeAd?,
     errorMessage: String,
+    showBottomAd: Boolean,
+    showLoadingAd: Boolean,
     scope: CoroutineScope,
     items: LazyPagingItems<String>?,
     checkNetwork: MutableState<Boolean>,
@@ -52,6 +54,7 @@ fun CategoryImageContent(
     fetchRemoteClassic: () -> Unit,
     fetchRemotePakistani: () -> Unit,
     fetchRemoteMoroccan: () -> Unit,
+    onImageClick: (String) -> Unit
 ) {
     if (checkNetwork.value) {
         NetworkDialog(showDialog = { checkNetwork.value = it })
@@ -110,7 +113,7 @@ fun CategoryImageContent(
             nativeAd = {
                 getNativeAd()
             },
-            showAd = true
+            showAd = showLoadingAd
         )
     }
 
@@ -131,15 +134,18 @@ fun CategoryImageContent(
 
         },
         bottomBar = {
-            GoogleNativeAd(
-                modifier = Modifier,
-                style = GoogleNativeAdStyle.Small,
-                nativeAd = nativeAd
-            )
+            if (showBottomAd) {
+                GoogleNativeAd(
+                    modifier = Modifier,
+                    style = GoogleNativeAdStyle.Small,
+                    nativeAd = nativeAd
+                )
+            }
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             CategoryImagesList(items = items, modifier = Modifier) {
+                onImageClick(it)
             }
         }
     }
