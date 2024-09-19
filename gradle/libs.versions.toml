@@ -6,6 +6,7 @@ coilComposeVersion = "2.6.0"
 constraintlayout = "2.1.4"
 gradle = "8.1.4"
 gradlePlugin = "1.5.0"
+grizzly = "2.1"
 koin = "4.0.0-RC2"
 koin-version = "3.6.0-wasm-alpha2"
 koinAndroid = "3.5.6"
@@ -62,6 +63,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeV
 gotrue-kt = { module = "io.github.jan-tennert.supabase:gotrue-kt" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 
+grizzly = { module = "io.github.farimarwat:grizzly", version.ref = "grizzly" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

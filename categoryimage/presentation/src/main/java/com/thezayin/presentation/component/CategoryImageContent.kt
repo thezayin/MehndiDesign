@@ -54,8 +54,9 @@ fun CategoryImageContent(
     fetchRemoteClassic: () -> Unit,
     fetchRemotePakistani: () -> Unit,
     fetchRemoteMoroccan: () -> Unit,
-    onImageClick: (String) -> Unit
+    onImageClick: (String) -> Unit,
 ) {
+
     if (checkNetwork.value) {
         NetworkDialog(showDialog = { checkNetwork.value = it })
     }
@@ -95,7 +96,7 @@ fun CategoryImageContent(
         ErrorQueryDialog(
             showDialog = { hideErrorDialog() },
             callback = {},
-            error = "Unstable internet Connection"
+            error =errorMessage
         )
     }
 

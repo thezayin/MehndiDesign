@@ -3,6 +3,7 @@ package com.thezayin.presentation
 import android.app.Activity
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,9 @@ fun HomeScreen(
 ) {
     // Inject the ViewModel using Koin
     val viewModel: HomeViewModel = koinInject()
+
+
+    LaunchedEffect(Unit) { viewModel.loadImages() }
 
     // Remember coroutine scope for managing coroutines
     val coroutineScope = rememberCoroutineScope()
@@ -97,7 +101,7 @@ fun HomeScreen(
             if (switchCategoryAd) {
                 showRewardedAd(
                     context = activity,
-                    showAd =showCategoryAd,
+                    showAd = showCategoryAd,
                     googleManager = viewModel.googleManager
                 ) { onCategoryClick(id, url) }
             } else {
@@ -117,7 +121,7 @@ fun HomeScreen(
                 ) {
                     onMoreCategoryClick()
                 }
-            }else{
+            } else {
                 showInterstitialAd(
                     activity = activity,
                     showAd = showMoreCategoryAd,
