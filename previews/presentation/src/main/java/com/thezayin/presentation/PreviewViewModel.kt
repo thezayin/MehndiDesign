@@ -98,16 +98,27 @@ class PreviewViewModel(
             }
 
             PreviewEvents.SaveImageStart -> {
-                _previewUIState.update { it.copy(isSaving = true, saveImageMessage = null) }
+                _previewUIState.update {
+                    it.copy(
+                        isSavingImage = true,
+                        saveImageSuccess = false,
+                        saveImageProgressMessage = "Saving..."
+                    )
+                }
             }
 
             is PreviewEvents.SaveImageComplete -> {
                 _previewUIState.update {
                     it.copy(
-                        isSaving = false,
-                        saveImageMessage = event.message
+                        isSavingImage = false,
+                        saveImageSuccess = true,
+                        saveImageProgressMessage = event.message
                     )
                 }
+            }
+
+            is PreviewEvents.SaveSuccess -> {
+                _previewUIState.update { it.copy(saveImageSuccess = event.isSuccess) }
             }
         }
     }
@@ -116,35 +127,20 @@ class PreviewViewModel(
      * Initiates the process to save an image from the provided URL.
      */
     fun saveImageFromUrl(url: String) = viewModelScope.launch {
-        _previewUIState.update { it.copy(isSaving = true, saveImageMessage = null) }
-
         saveImage(url).collect { response ->
             when (response) {
-                is Response.Loading -> {
-                    _previewUIState.update { it.copy(isSaving = true) }
-                }
+                is Response.Loading -> {}
 
                 is Response.Success -> {
-                    _previewUIState.update {
-                        it.copy(
-                            isSaving = false,
-                            saveImageMessage = "Image saved successfully!"
-                        )
-                    }
+                    saveImageMessage("Image saved successfully!")
                 }
 
                 is Response.Error -> {
-                    _previewUIState.update {
-                        it.copy(
-                            isSaving = false,
-                            saveImageMessage = "Failed to save image: ${response.e}"
-                        )
-                    }
+                    saveImageMessage("Failed to save image: ${response.e}")
                 }
             }
         }
     }
-
 
     /**
      * Checks if the image exists in the list of favourite images.
@@ -338,6 +334,14 @@ class PreviewViewModel(
      * Resets the save image message to null after displaying.
      */
     fun resetSaveImageMessage() {
-        _previewUIState.update { it.copy(saveImageMessage = null) }
+        handlePreviewUiEvents(PreviewEvents.SaveImageComplete(""))
+    }
+
+    private fun saveImageMessage(message: String) {
+        handlePreviewUiEvents(PreviewEvents.SaveImageComplete(message))
+    }
+
+    fun startSaveImage() {
+        handlePreviewUiEvents(PreviewEvents.SaveImageStart)
     }
 }

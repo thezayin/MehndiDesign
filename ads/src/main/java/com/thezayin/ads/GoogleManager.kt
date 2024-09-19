@@ -2,6 +2,8 @@ package com.thezayin.ads
 
 import android.app.Activity
 import android.content.Context
+import android.util.AndroidRuntimeException
+import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
@@ -17,8 +19,10 @@ import com.thezayin.ads.builders.GoogleRewardedAdBuilder
 import com.thezayin.ads.builders.GoogleRewardedInterstitialAdBuilder
 import com.thezayin.ads.ump.ConsentManager
 import com.thezayin.ads.utils.AdUnit
+import com.thezayin.ads.utils.isWebViewAvailable
 import com.thezayin.analytics.analytics.Analytics
 import com.thezayin.analytics.events.AnalyticsEvent
+import timber.log.Timber
 
 class GoogleManager(
     private val context: Context,
@@ -47,18 +51,71 @@ class GoogleManager(
     fun initOnLastConsent() = consentManager.ifCanRequestAds { loadAds() }
 
     private fun loadAds() {
-        MobileAds.initialize(context)
-        if (debug) MobileAds.setRequestConfiguration(
-            RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
-        )
+        if (!isWebViewAvailable(context)) {
+            Timber.e("GoogleManager", "WebView is not available on this device.")
+            analytics.logEvent(
+                AnalyticsEvent.AdInitializationFailed(
+                    event = "AdInitializationFailed",
+                    reason = "WebView not available"
+                )
+            )
+            // Optionally, notify the user
+            if (context is Activity) {
+                Toast.makeText(
+                    context,
+                    "Ad features are unavailable on this device.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            return
+        }
 
-        googleRewardedInterstitialAd =
-            ::GoogleRewardedInterstitialAdBuilder.from(AdUnit.rewardedInterstitial)
-        googleRewardedAd = ::GoogleRewardedAdBuilder.from(AdUnit.rewarded)
-        googleInterAd = ::GoogleInterstitialAdBuilder.from(AdUnit.interstitial)
-        googleAppOpen = ::GoogleAppOpenAdBuilder.from(AdUnit.appOpen)
-        googleNativeAd = ::GoogleNativeAdBuilder.from(AdUnit.native)
+        try {
+            MobileAds.initialize(context) { initializationStatus ->
+                Timber.d(
+                    "GoogleManager",
+                    "MobileAds initialized with status: $initializationStatus"
+                )
+            }
+            if (debug) {
+                MobileAds.setRequestConfiguration(
+                    RequestConfiguration.Builder()
+                        .setTestDeviceIds(testDeviceIds)
+                        .build()
+                )
+            }
+
+            googleRewardedInterstitialAd =
+                ::GoogleRewardedInterstitialAdBuilder.from(AdUnit.rewardedInterstitial)
+            googleRewardedAd = ::GoogleRewardedAdBuilder.from(AdUnit.rewarded)
+            googleInterAd = ::GoogleInterstitialAdBuilder.from(AdUnit.interstitial)
+            googleAppOpen = ::GoogleAppOpenAdBuilder.from(AdUnit.appOpen)
+            googleNativeAd = ::GoogleNativeAdBuilder.from(AdUnit.native)
+
+            Timber.d("GoogleManager", "All ad types initialized successfully.")
+        } catch (e: AndroidRuntimeException) {
+            Timber.e("GoogleManager", "Failed to initialize MobileAds: ${e.message}", e)
+            analytics.logEvent(
+                AnalyticsEvent.AdInitializationFailed(
+                    event = "AdInitializationFailed",
+                    reason = e.message ?: "Unknown error"
+                )
+            )
+        } catch (e: Exception) {
+            Timber.e(
+                "GoogleManager",
+                "Unexpected error during MobileAds initialization: ${e.message}",
+                e
+            )
+            analytics.logEvent(
+                AnalyticsEvent.AdInitializationFailed(
+                    event = "AdInitializationFailed",
+                    reason = e.message ?: "Unknown error"
+                )
+            )
+        }
     }
+
 
     private fun <T> ((Context, String, Analytics) -> AdBuilder<T>).from(unit: AdUnit) = GoogleAd(
         this(context, unit.resolve(debug), analytics).withAnalytics()

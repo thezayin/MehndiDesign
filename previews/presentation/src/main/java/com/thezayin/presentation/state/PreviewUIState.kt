@@ -6,8 +6,8 @@ import com.thezayin.domain.model.PreviewMenu
 /**
  * Data class that holds the UI state for the preview screen.
  *
- * @param isSaving Indicates if the image is currently being saved.
- * @param saveImageMessage Message to be displayed after attempting to save an image.
+ * @param isSavingImage Indicates if the image is currently being saved.
+ * @param saveImageProgressMessage Message to be displayed after attempting to save an image.
  * @param isLoading Indicates if the content is currently loading.
  * @param showErrorDialog Indicates if the error dialog should be shown.
  * @param errorMessage Message to be displayed in case of an error.
@@ -18,8 +18,9 @@ import com.thezayin.domain.model.PreviewMenu
  * @param menuItems List of menu options displayed at the bottom of the screen.
  */
 data class PreviewUIState(
-    val isSaving: Boolean = false,
-    val saveImageMessage: String? = null,
+    val isSavingImage: Boolean = false,
+    val saveImageSuccess: Boolean = false,
+    val saveImageProgressMessage: String? = null,
     val isLoading: Boolean = false,
     val showErrorDialog: Boolean = false,
     val errorMessage: String = "",

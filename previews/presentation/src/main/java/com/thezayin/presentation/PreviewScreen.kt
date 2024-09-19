@@ -47,11 +47,15 @@ fun PreviewScreen(
     val switchAdOnImageRemove = remoteConfig.interstitialToRewardedOnImageRemove
     val switchAdOnImageLike = remoteConfig.interstitialToRewardedOnImageLike
     // Call the composable that handles the screen layout and behavior
-    PreviewScreenContent(activity = activity,
+    PreviewScreenContent(
+        activity = activity,
         imageId = uiState.imageId,
         imageUrl = imageUrl,
         showLoadingAd = showLoadingAd,
         showBottomAd = showBottomAd,
+        isSavingImage = uiState.isSavingImage,
+        saveImageSuccess = uiState.saveImageSuccess,
+        saveImageMessage = uiState.saveImageProgressMessage,
         menuItems = uiState.menuItems,
         showLoading = uiState.isLoading,
         currentNativeAd = nativeAdState.value,
@@ -59,7 +63,8 @@ fun PreviewScreen(
         imageSavedSuccess = uiState.isLikeActionSuccessful,
         coroutineScope = coroutineScope,
         onBackButtonClick = {
-            showInterstitialAd(activity = activity,
+            showInterstitialAd(
+                activity = activity,
                 showAd = showAdOnBackPress,
                 manager = googleManager,
                 callBack = { onBackClick() })
@@ -72,7 +77,8 @@ fun PreviewScreen(
                     googleManager = googleManager,
                     callback = { viewModel.removeFavouriteImage(id) })
             } else {
-                showInterstitialAd(activity = activity,
+                showInterstitialAd(
+                    activity = activity,
                     showAd = adOnImageRemove,
                     manager = googleManager,
                     callBack = { viewModel.removeFavouriteImage(id) })
@@ -91,5 +97,8 @@ fun PreviewScreen(
                     callBack = { viewModel.addFavouriteImage(image) })
             }
         },
-        verifyImageExistenceInFavorites = { viewModel.checkIfImageExists(imageUrl) })
+        verifyImageExistenceInFavorites = { viewModel.checkIfImageExists(imageUrl) },
+        saveImage = { viewModel.saveImageFromUrl(imageUrl) }, // Pass saveImage lambda
+        resetSaveImageMessage = { viewModel.resetSaveImageMessage() } // Pass reset function
+    )
 }

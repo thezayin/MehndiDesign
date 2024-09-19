@@ -66,4 +66,6 @@ sealed interface PreviewEvents {
      * @param message The result message after saving the image.
      */
     data class SaveImageComplete(val message: String) : PreviewEvents
+
+    data class SaveSuccess(val isSuccess: Boolean) : PreviewEvents
 }

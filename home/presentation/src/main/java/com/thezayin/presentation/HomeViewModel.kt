@@ -43,7 +43,6 @@ class HomeViewModel(
         private set
 
     init {
-        loadImages()
         loadCategories()
     }
 
@@ -93,7 +92,7 @@ class HomeViewModel(
     /**
      * Loads images and triggers fetching home images.
      */
-    private fun loadImages() = viewModelScope.launch {
+    fun loadImages() = viewModelScope.launch {
         fetchRemoteUseCase().collect { response ->
             when (response) {
                 is Response.Success -> {

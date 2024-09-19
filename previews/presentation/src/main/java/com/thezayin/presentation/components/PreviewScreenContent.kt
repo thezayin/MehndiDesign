@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.components.LoadingDialog
+import com.thezayin.components.SaveImageDialog
+import com.thezayin.components.SaveImageSuccessDialog
 import com.thezayin.domain.model.PreviewMenu
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
@@ -53,6 +55,9 @@ fun PreviewScreenContent(
     showLoadingAd: Boolean,
     showBottomAd: Boolean,
     currentNativeAd: NativeAd?,
+    isSavingImage: Boolean,
+    saveImageMessage: String?,
+    saveImageSuccess: Boolean,
     imageExistsInFavorites: Boolean,
     imageSavedSuccess: Boolean,
     coroutineScope: CoroutineScope,
@@ -60,8 +65,37 @@ fun PreviewScreenContent(
     fetchNativeAd: () -> Unit,
     removeImageFromFavorites: (Int) -> Unit,
     addImageToFavorites: (String) -> Unit,
-    verifyImageExistenceInFavorites: () -> Unit
+    verifyImageExistenceInFavorites: () -> Unit,
+    saveImage: () -> Unit,
+    resetSaveImageMessage: () -> Unit
 ) {
+
+//    // Show save progress dialog
+//    if (isSavingImage) {
+//        SaveImageDialog(isSaving = isSavingImage, saveMessage = saveImageMessage)
+//    }
+//
+//    // Show save success dialog
+//    if (saveImageSuccess) {
+//        SaveImageSuccessDialog(resetSaveState = resetSaveImageMessage)
+//    }
+
+    // Handle the saveImageMessage
+    if (saveImageMessage != null) {
+        LaunchedEffect(saveImageMessage) {
+            Toast.makeText(activity, saveImageMessage, Toast.LENGTH_SHORT).show()
+            resetSaveImageMessage() // Reset the message after displaying
+        }
+    }
+
+    // Rest of the composable...
+
+    // Display a toast if the image was successfully saved
+    if (imageSavedSuccess) {
+        Toast.makeText(activity, "Image saved successfully", Toast.LENGTH_SHORT).show()
+    }
+
+
     // Check if the image exists in favorites when the composable is launched
     LaunchedEffect(Unit) {
         verifyImageExistenceInFavorites()
@@ -141,6 +175,7 @@ fun PreviewScreenContent(
                 when (selectedMenuOption) {
                     1 -> {
                         // Placeholder for the first menu option (if needed in future)
+                        saveImage()
                     }
 
                     2 -> {

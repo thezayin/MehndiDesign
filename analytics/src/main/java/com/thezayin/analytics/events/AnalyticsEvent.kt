@@ -49,6 +49,16 @@ sealed class AnalyticsEvent(
         }
     )
 
+    class AdInitializationFailed(
+        event: String,
+        reason: String
+    ) : AnalyticsEvent(
+        event,
+        Bundle().apply {
+            putString("reason", reason)
+        }
+    )
+
     class AdPaidEvent(
         event :String,
         provider :String,

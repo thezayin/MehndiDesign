@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -57,25 +58,28 @@ internal fun CategoryImageTopBar(
             fontSize = 22.sp,
             fontFamily = FontFamily(Font(R.font.noto_sans_bold)),
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(
-                onClick = {
-                    Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
-                },
-                modifier = Modifier.padding(start = 10.dp),
-                shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.green_level_1)
-                )
+        Spacer(modifier)
+        if (false) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_crown),
-                    contentDescription = null,
-                    modifier = Modifier.size(25.dp),
-                    contentScale = ContentScale.Fit
-                )
+                Button(
+                    onClick = {
+                        Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
+                    },
+                    modifier = Modifier.padding(start = 10.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.green_level_1)
+                    )
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_crown),
+                        contentDescription = null,
+                        modifier = Modifier.size(25.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
     }

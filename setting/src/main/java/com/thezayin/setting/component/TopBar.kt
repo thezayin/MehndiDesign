@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -65,28 +66,29 @@ fun TopBar(
             fontSize = 22.sp,  // Set the font size for the title text
             fontFamily = FontFamily(Font(R.font.noto_sans_bold)) // Custom font family
         )
-
-        // Action Button (with crown icon)
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(
-                onClick = {
-                    // Display a "Coming soon" toast message when clicked
-                    Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
-                }, modifier = Modifier.padding(start = 10.dp),  // Padding between elements
-                shape = RoundedCornerShape(10.dp),  // Rounded corners for the button
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.green_level_1)  // Button background color
-                )
+        Spacer(modifier)
+        if (false) { // Action Button (with crown icon)
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Crown Icon within the Button
-                Image(
-                    painter = painterResource(id = R.drawable.ic_crown),
-                    contentDescription = "Crown Icon",  // Added content description for accessibility
-                    modifier = Modifier.size(25.dp),
-                    contentScale = ContentScale.Fit  // Scale the image to fit within the button
-                )
+                Button(
+                    onClick = {
+                        // Display a "Coming soon" toast message when clicked
+                        Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
+                    }, modifier = Modifier.padding(start = 10.dp),  // Padding between elements
+                    shape = RoundedCornerShape(10.dp),  // Rounded corners for the button
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.green_level_1)  // Button background color
+                    )
+                ) {
+                    // Crown Icon within the Button
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_crown),
+                        contentDescription = "Crown Icon",  // Added content description for accessibility
+                        modifier = Modifier.size(25.dp),
+                        contentScale = ContentScale.Fit  // Scale the image to fit within the button
+                    )
+                }
             }
         }
     }

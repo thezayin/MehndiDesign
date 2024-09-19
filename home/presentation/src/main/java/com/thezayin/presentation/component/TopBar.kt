@@ -2,7 +2,14 @@ package com.thezayin.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -54,38 +61,37 @@ internal fun TopBar(
                     .width(8.dp)
                     .weight(1f)
             )
-
             // Row containing Premium Button and Like Icon
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Premium Button
-                Button(
-                    onClick = { onPremiumClick() },
-                    modifier = Modifier.padding(start = 10.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.green_level_1)
-                    )
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_crown),
-                        contentDescription = "Premium",
-                        modifier = Modifier.size(25.dp),
-                        contentScale = ContentScale.Fit
-                    )
+                if (false) {
+                    // Premium Button
+                    Button(
+                        onClick = { onPremiumClick() },
+                        modifier = Modifier.padding(start = 10.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.green_level_1)
+                        )
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_crown),
+                            contentDescription = "Premium",
+                            modifier = Modifier.size(25.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
                 }
-
                 // Like Icon
-                Image(
-                    painter = painterResource(id = R.drawable.ic_like_filled),
+                Image(painter = painterResource(id = R.drawable.ic_like_filled),
                     contentDescription = "Like",
                     modifier = Modifier
                         .clickable { likeCallback() }
                         .padding(start = 10.dp)
                         .size(45.dp),
-                    contentScale = ContentScale.Fit
-                )
+                    contentScale = ContentScale.Fit)
+
             }
         }
     }
