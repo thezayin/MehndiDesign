@@ -10,23 +10,23 @@ grizzly = "2.1"
 koin = "4.0.0-RC2"
 koin-version = "3.6.0-wasm-alpha2"
 koinAndroid = "3.5.6"
-kotlin = "2.0.10"
+kotlin = "2.0.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-kotlinxSerializationJson = "1.7.1"
+kotlinxSerializationJson = "1.7.2"
 ktorClientCio = "2.3.12"
 navigationCompose = "2.8.0"
 orgSerlize = "2.0.10"
-lifecycle = "2.8.5"
+lifecycle = "2.8.6"
 activityCompose = "1.9.2"
-composeBom = "2024.09.00"
+composeBom = "2024.09.02"
 ktor = "2.3.12"
 ktorSerialize = "2.3.12"
 googleServicesVersion = "4.4.2"
 firebaseAnalytics = "22.1.0"
-firebaseCrashlytics = "19.0.3"
+firebaseCrashlytics = "19.1.0"
 firebaseCrashlyticsGradle = "3.0.2"
 firebasePerf = "21.0.1"
 pagingCompose = "3.3.2"
@@ -49,6 +49,7 @@ firebaseCommonKtx = "21.0.0"
 playServicesMeasurementApi = "22.1.0"
 jetbrainsKotlinJvm = "1.9.22"
 sqlDelight = "2.0.1"
+vungle = "7.4.1.0"
 
 [libraries]
 
@@ -133,6 +134,8 @@ play-services-measurement-api = { group = "com.google.android.gms", name = "play
 android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
+vungle = { module = "com.google.ads.mediation:vungle", version.ref = "vungle" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

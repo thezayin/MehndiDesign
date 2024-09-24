@@ -22,6 +22,7 @@ import com.thezayin.ads.utils.AdUnit
 import com.thezayin.ads.utils.isWebViewAvailable
 import com.thezayin.analytics.analytics.Analytics
 import com.thezayin.analytics.events.AnalyticsEvent
+import com.vungle.ads.VunglePrivacySettings
 import timber.log.Timber
 
 class GoogleManager(
@@ -43,9 +44,16 @@ class GoogleManager(
     )
 
     fun init(activity: Activity) {
-        consentManager.getUserConsent(activity = activity,
-            onConsentGranted = { loadAds() },
-            onError = { loadAds() })
+        loadAds()
+        setMonetizationAdaptersGDPR()
+    }
+
+    private fun setMonetizationAdaptersGDPR() {
+        // Vungle
+        VunglePrivacySettings.apply {
+            setGDPRStatus(true, "1.0.0")
+            setCCPAStatus(true)
+        }
     }
 
     fun initOnLastConsent() = consentManager.ifCanRequestAds { loadAds() }
