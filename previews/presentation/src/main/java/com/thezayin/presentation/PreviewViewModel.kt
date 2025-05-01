@@ -14,8 +14,8 @@ import com.thezayin.domain.usecase.GetFavouriteMenuList
 import com.thezayin.domain.usecase.InsertImage
 import com.thezayin.domain.usecase.PreviewItems
 import com.thezayin.domain.usecase.SaveImage
-import com.thezayin.framework.config.RemoteConfig
-import com.thezayin.framework.utils.Response
+import com.thezayin.framework.config.RemoteConfig11
+import com.thezayin.framework.utils.Responsee
 import com.thezayin.presentation.event.PreviewEvents
 import com.thezayin.presentation.state.PreviewUIState
 import kotlinx.coroutines.delay
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 @Suppress("SameParameterValue")
 class PreviewViewModel(
     val googleManager: GoogleManager,
-    val remoteConfig: RemoteConfig,
+    val remoteConfig11: RemoteConfig11,
     private val saveImage: SaveImage,
     private val menuItemsUseCase: PreviewItems,
     private val deleteImageUseCase: DeleteImage,
@@ -129,13 +129,13 @@ class PreviewViewModel(
     fun saveImageFromUrl(url: String) = viewModelScope.launch {
         saveImage(url).collect { response ->
             when (response) {
-                is Response.Loading -> {}
+                is Responsee.Loading -> {}
 
-                is Response.Success -> {
+                is Responsee.Success -> {
                     saveImageMessage("Image saved successfully!")
                 }
 
-                is Response.Error -> {
+                is Responsee.Error -> {
                     saveImageMessage("Failed to save image: ${response.e}")
                 }
             }
@@ -176,17 +176,17 @@ class PreviewViewModel(
     private fun fetchFavouriteItems() = viewModelScope.launch {
         getFavouriteMenuListUseCase().collect { response ->
             when (response) {
-                is Response.Success -> {
+                is Responsee.Success -> {
                     hideLoading()
                     updateBottomMenu(response.data)
                 }
 
-                is Response.Error -> {
+                is Responsee.Error -> {
                     showErrorDialog()
                     showErrorMessage(response.e)
                 }
 
-                is Response.Loading -> {
+                is Responsee.Loading -> {
                     showLoading()
                     hideErrorDialog()
                 }
@@ -200,17 +200,17 @@ class PreviewViewModel(
     private fun fetchMenuItems() = viewModelScope.launch {
         menuItemsUseCase().collect { response ->
             when (response) {
-                is Response.Success -> {
+                is Responsee.Success -> {
                     hideLoading()
                     updateBottomMenu(response.data)
                 }
 
-                is Response.Error -> {
+                is Responsee.Error -> {
                     showErrorDialog()
                     showErrorMessage(response.e)
                 }
 
-                is Response.Loading -> {
+                is Responsee.Loading -> {
                     showLoading()
                     hideErrorDialog()
                 }

@@ -1,9 +1,11 @@
 package com.thezayin.framework.nativead
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -23,7 +25,6 @@ import androidx.databinding.ViewDataBinding
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.databinding.LayoutAdmobNativeButtonOutlineBinding
 import com.thezayin.ads.databinding.LayoutAdmobNativeSmallBinding
-import com.thezayin.framework.extension.functions.getActivity
 
 sealed class GoogleNativeAdStyle {
     data object Small : GoogleNativeAdStyle()
@@ -41,7 +42,7 @@ fun GoogleNativeAd(
     placeholder: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
-    val activity = context.getActivity()
+    val activity = LocalActivity.current as Activity
 
     if (LocalInspectionMode.current) {
         placeholder()

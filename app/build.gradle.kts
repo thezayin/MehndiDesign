@@ -11,15 +11,15 @@ plugins {
 
 android {
     namespace = "com.thezayin.mehndidesign"
-    compileSdk = 35
+    compileSdk =  libs.versions.compileSdkVersion.get().toInt()
 
     defaultConfig {
         multiDexEnabled = true
         applicationId = "com.thezayin.mehndidesign"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 2
-        versionName = "1.0.2"
+        minSdk = libs.versions.minSdkVersion.get().toInt()
+        targetSdk = libs.versions.targetSdkVersion.get().toInt()
+        versionCode = 3
+        versionName = "1.0.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -56,18 +56,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":common:values"))
-    implementation(project(":analytics"))
-    implementation(project(":ads"))
-    implementation(project(":databases"))
-    implementation(project(":core:framework"))
-    implementation(project(":splash"))
-    implementation(project(":setting"))
-    implementation(project(":previews:presentation"))
-    implementation(project(":home:presentation"))
-    implementation(project(":favourite:presentation"))
-    implementation(project(":categories:presentation"))
-    implementation(project(":categoryimage:presentation"))
+    implementation(project(":framework"))
+    implementation(project(":category"))
+    implementation(project(":preview"))
+    implementation(project(":favorites"))
+    implementation(project(":home"))
+    implementation(project(":start-up"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -106,5 +100,5 @@ dependencies {
     //navigation
     implementation(libs.androidx.navigation.compose)
 
-    implementation(libs.grizzly)
+    implementation(libs.play.services.ads)
 }

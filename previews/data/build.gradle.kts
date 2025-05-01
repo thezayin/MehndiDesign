@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":previews:domain"))
     implementation(project(":common:values"))
     implementation(project(":core:framework"))
     implementation(project(":databases"))

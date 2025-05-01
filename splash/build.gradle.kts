@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.thezayin.splash"
-    compileSdk = 35
+    compileSdk =  libs.versions.compileSdkVersion.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdkVersion.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -40,10 +40,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":ads"))
-    implementation(project(":common:values"))
-    implementation(project(":common:components"))
-    implementation(project(":core:framework"))
+    implementation(project(":framework"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -75,4 +72,6 @@ dependencies {
     implementation(libs.koin.android)
     testImplementation(libs.koin.test.junit4)
     implementation(libs.koin.androidx.navigation)
+
+    implementation(libs.sdp.compose)
 }

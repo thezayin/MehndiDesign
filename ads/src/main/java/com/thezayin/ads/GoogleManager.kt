@@ -8,20 +8,16 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.nativead.NativeAd
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd
-import com.thezayin.ads.builders.GoogleAppOpenAdBuilder
-import com.thezayin.ads.builders.GoogleInterstitialAdBuilder
-import com.thezayin.ads.builders.GoogleNativeAdBuilder
-import com.thezayin.ads.builders.GoogleRewardedAdBuilder
-import com.thezayin.ads.builders.GoogleRewardedInterstitialAdBuilder
+import com.thezayin.ads.builders.GoogleAppOpenAdLoader
+import com.thezayin.ads.builders.GoogleInterstitialAdLoader
+import com.thezayin.ads.builders.GoogleNativeAdLoader
+import com.thezayin.ads.builders.GoogleRewardedAdLoader
 import com.thezayin.ads.ump.ConsentManager
 import com.thezayin.ads.utils.AdUnit
 import com.thezayin.ads.utils.isWebViewAvailable
-import com.thezayin.analytics.analytics.Analytics
-import com.thezayin.analytics.events.AnalyticsEvent
+import com.thezayin.framework.analytics.analytics.Analytics
+import com.thezayin.framework.analytics.events.AnalyticsEvent
 import com.vungle.ads.VunglePrivacySettings
 import timber.log.Timber
 
@@ -32,11 +28,10 @@ class GoogleManager(
 
 ) {
     private val debug get() = BuildConfig.DEBUG
-    private var googleInterAd: GoogleAd<InterstitialAd>? = null
-    private var googleAppOpen: GoogleAd<AppOpenAd>? = null
-    private var googleNativeAd: GoogleAd<NativeAd>? = null
-    private var googleRewardedAd: GoogleAd<RewardedAd>? = null
-    private var googleRewardedInterstitialAd: GoogleAd<RewardedInterstitialAd>? = null
+    private var googleInterAd: GoogleInterstitialAdLoader? = null
+    private var googleAppOpen: GoogleAppOpenAdLoader? = null
+    private var googleNativeAd: GoogleNativeAdLoader? = null
+    private var googleRewardedAd: GoogleRewardedAdLoader? = null
 
     private val testDeviceIds: List<String> = listOf(
         AdRequest.DEVICE_ID_EMULATOR, "990C1C4A58DB7FED6AF5D9A33E3DD1FF",//Samsung,
@@ -93,12 +88,10 @@ class GoogleManager(
                 )
             }
 
-            googleRewardedInterstitialAd =
-                ::GoogleRewardedInterstitialAdBuilder.from(AdUnit.rewardedInterstitial)
-            googleRewardedAd = ::GoogleRewardedAdBuilder.from(AdUnit.rewarded)
-            googleInterAd = ::GoogleInterstitialAdBuilder.from(AdUnit.interstitial)
-            googleAppOpen = ::GoogleAppOpenAdBuilder.from(AdUnit.appOpen)
-            googleNativeAd = ::GoogleNativeAdBuilder.from(AdUnit.native)
+            googleRewardedAd = GoogleRewardedAdLoader(context)
+            googleInterAd = GoogleInterstitialAdLoader(context)
+            googleAppOpen = GoogleAppOpenAdLoader(context)
+            googleNativeAd = GoogleNativeAdLoader(context)
 
             Timber.d("GoogleManager", "All ad types initialized successfully.")
         } catch (e: AndroidRuntimeException) {
@@ -141,9 +134,24 @@ class GoogleManager(
         }
     }
 
-    fun createRewardedInterstitialAd() = googleRewardedInterstitialAd?.get()
-    fun createAppOpenAd() = googleAppOpen?.get()
-    fun createInterstitialAd() = googleInterAd?.get()
-    fun createNativeAd(): NativeAd? = googleNativeAd?.get()
-    fun createRewardedAd() = googleRewardedAd?.get()
+    fun createAppOpenAd(
+        onAdLoaded: (AppOpenAd) -> Unit,
+        onAdLoading: () -> Unit,
+        onAdFailed: () -> Unit
+    ){
+        googleAppOpen?.loadAd(
+            onAdLoaded = {
+                Timber.d("GoogleManager", "App Open Ad loaded successfully.")
+            },
+            onAdLoading = {
+                Timber.d("GoogleManager", "Loading App Open Ad...")
+            },
+            onAdFailed = {
+                Timber.e("GoogleManager", "Failed to load App Open Ad.")
+            }
+        )
+    }
+    fun createInterstitialAd() = null
+    fun createNativeAd(): NativeAd? = null
+    fun createRewardedAd() = null
 }

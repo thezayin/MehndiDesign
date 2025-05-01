@@ -4,45 +4,21 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/ads" />
-            <option value="$PROJECT_DIR$/analytics" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/categories" />
-            <option value="$PROJECT_DIR$/categories/data" />
-            <option value="$PROJECT_DIR$/categories/domain" />
-            <option value="$PROJECT_DIR$/categories/presentation" />
-            <option value="$PROJECT_DIR$/categoryimage" />
-            <option value="$PROJECT_DIR$/categoryimage/data" />
-            <option value="$PROJECT_DIR$/categoryimage/domain" />
-            <option value="$PROJECT_DIR$/categoryimage/presentation" />
-            <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/common/components" />
-            <option value="$PROJECT_DIR$/common/values" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/framework" />
-            <option value="$PROJECT_DIR$/databases" />
-            <option value="$PROJECT_DIR$/favourite" />
-            <option value="$PROJECT_DIR$/favourite/data" />
-            <option value="$PROJECT_DIR$/favourite/domain" />
-            <option value="$PROJECT_DIR$/favourite/presentation" />
+            <option value="$PROJECT_DIR$/category" />
+            <option value="$PROJECT_DIR$/favorites" />
+            <option value="$PROJECT_DIR$/framework" />
             <option value="$PROJECT_DIR$/home" />
-            <option value="$PROJECT_DIR$/home/data" />
-            <option value="$PROJECT_DIR$/home/domain" />
-            <option value="$PROJECT_DIR$/home/presentation" />
-            <option value="$PROJECT_DIR$/previews" />
-            <option value="$PROJECT_DIR$/previews/data" />
-            <option value="$PROJECT_DIR$/previews/domain" />
-            <option value="$PROJECT_DIR$/previews/presentation" />
-            <option value="$PROJECT_DIR$/setting" />
-            <option value="$PROJECT_DIR$/splash" />
+            <option value="$PROJECT_DIR$/preview" />
+            <option value="$PROJECT_DIR$/start-up" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

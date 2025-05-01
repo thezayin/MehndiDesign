@@ -23,29 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.Lifecycle
-import com.thezayin.framework.lifecycles.ComposableLifecycle
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
 import com.thezayin.values.R
 
 @Composable
 fun LoadingDialog(ad: @Composable () -> Unit = {}, nativeAd: () -> Unit= {}, showAd: Boolean) {
     val scope = rememberCoroutineScope()
-    ComposableLifecycle { _, event ->
-        when (event) {
-            Lifecycle.Event.ON_START -> {
-                scope.launch {
-                    while (this.isActive) {
-                        nativeAd()
-                        delay(20000L)
-                    }
-                }
-            }
 
-            else -> {}
-        }
-    }
     Dialog(onDismissRequest = { }) {
         Card(
             colors = CardDefaults.cardColors(

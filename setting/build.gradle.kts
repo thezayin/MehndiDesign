@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.thezayin.setting"
-    compileSdk = 35
+    compileSdk =  libs.versions.compileSdkVersion.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdkVersion.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -40,7 +40,7 @@ dependencies {
     implementation(project(":ads"))
     implementation(project(":common:values"))
     implementation(project(":common:components"))
-    implementation(project(":core:framework"))
+    implementation(project(":framework"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -65,6 +65,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.common.java8)
+
+    implementation(libs.sdp.compose)
 
     //koin dependency injection
     implementation(libs.koin.core)

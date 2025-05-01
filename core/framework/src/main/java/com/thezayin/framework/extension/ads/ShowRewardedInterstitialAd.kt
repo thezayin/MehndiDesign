@@ -15,13 +15,13 @@ fun Activity.showRewardedInterstitialAd(
         return
     }
 
-    val adMob = googleManager.createRewardedInterstitialAd()
-    adMob?.apply {
-        fullScreenContentCallback = AdmobRewardedInterListener(callBack)
-        show(this@showRewardedInterstitialAd) {
-            callBack.invoke(RewardedInterstitialAdStatus.UserRewarded)
-        }
-    }
+//    val adMob = googleManager.createRewardedInterstitialAd()
+//    adMob?.apply {
+//        fullScreenContentCallback = AdmobRewardedInterListener(callBack)
+//        show(this@showRewardedInterstitialAd) {
+//            callBack.invoke(RewardedInterstitialAdStatus.UserRewarded)
+//        }
+//    }
 }
 
 internal class AdmobRewardedInterListener(

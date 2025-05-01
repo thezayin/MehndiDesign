@@ -19,10 +19,7 @@ abstract class AdBuilder<T> : ((AdStatus<T>) -> Unit) -> Unit {
 }
 
 class GoogleAd<T>(val builder: AdBuilder<T>) {
-    private var ads: MutableList<AdStatus<T>> = mutableListOf(
-        AdStatus.Loading,
-        AdStatus.Loading
-    )
+    private var ads: MutableList<AdStatus<T>> = mutableListOf(AdStatus.Loading)
 
     init {
         for (ad in ads) builder { adInstance ->

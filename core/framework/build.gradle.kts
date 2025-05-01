@@ -43,7 +43,6 @@ android {
 
 dependencies {
     implementation(project(":ads"))
-    implementation(project(":analytics"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -83,6 +82,8 @@ dependencies {
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.serialize)
+
+    implementation ("com.google.code.gson:gson:2.11.0")
 
     //Supabase
     api(libs.postgrest.kt)

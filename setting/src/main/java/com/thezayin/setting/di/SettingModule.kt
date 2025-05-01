@@ -9,6 +9,5 @@ import org.koin.dsl.module
  * Registers the [SettingViewModel] to be injected wherever required.
  */
 val settingModule = module {
-    // Provides the SettingViewModel using Koin's viewModelOf function
     viewModelOf(::SettingViewModel)
 }

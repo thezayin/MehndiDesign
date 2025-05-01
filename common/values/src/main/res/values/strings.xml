@@ -1,5 +1,20 @@
 <resources>
-    <string name="app_name">SIM Insights</string>
+    <string name="app_name">Mehndi Designs-2025</string>
     <string name="ads_title">ad</string>
     <string name="ad">Ad</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="back_button_label">Back</string>
+
+    <string name="others">Others</string>
+    <string name="leave_rating_review">Leave a rating/review</string>
+    <string name="about_us">About Us</string>
+
+    <string name="legal">Legal</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="privacy_policy_icon">Privacy Policy Icon</string>
+    <string name="terms_conditions_icon">Terms &amp; Conditions Icon</string>
+    <string name="contact_us_icon">Contact Us Icon</string>
 </resources>
