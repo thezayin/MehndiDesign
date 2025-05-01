@@ -2,14 +2,14 @@ package com.thezayin.domain.usecase
 
 import com.thezayin.domain.model.PreviewMenu
 import com.thezayin.domain.repository.PreviewMenuRepository
-import com.thezayin.framework.utils.Response
+import com.thezayin.framework.utils.Responsee
 import kotlinx.coroutines.flow.Flow
 
 /**
  * Use case interface for retrieving the list of preview menu items.
- * It is represented as a suspend function that returns a [Flow] of [Response] containing a list of [PreviewMenu].
+ * It is represented as a suspend function that returns a [Flow] of [Responsee] containing a list of [PreviewMenu].
  */
-interface PreviewItems : suspend () -> Flow<Response<List<PreviewMenu>>>
+interface PreviewItems : suspend () -> Flow<Responsee<List<PreviewMenu>>>
 
 /**
  * Implementation of the [PreviewItems] interface.
@@ -22,7 +22,7 @@ class PreviewItemsImpl(private val repository: PreviewMenuRepository) : PreviewI
     /**
      * Invokes the use case to retrieve the list of preview menu items.
      *
-     * @return A [Flow] that emits [Response] objects containing a list of [PreviewMenu].
+     * @return A [Flow] that emits [Responsee] objects containing a list of [PreviewMenu].
      */
-    override suspend fun invoke(): Flow<Response<List<PreviewMenu>>> = repository.getPreviewMenu()
+    override suspend fun invoke(): Flow<Responsee<List<PreviewMenu>>> = repository.getPreviewMenu()
 }

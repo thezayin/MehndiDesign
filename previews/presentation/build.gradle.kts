@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("com.google.devtools.ksp") version "2.0.10-1.0.24"
+        alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -44,9 +44,6 @@ dependencies {
     implementation(project(":common:values"))
     implementation(project(":common:components"))
     implementation(project(":ads"))
-
-    implementation(project(":previews:domain"))
-    implementation(project(":previews:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

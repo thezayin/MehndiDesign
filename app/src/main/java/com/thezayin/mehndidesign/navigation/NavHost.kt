@@ -4,89 +4,73 @@ import SplashScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
-import com.thezayin.presentation.CategoryImageScreen
-import com.thezayin.presentation.CategoryScreen
-import com.thezayin.presentation.FavouriteScreen
-import com.thezayin.presentation.HomeScreen
-import com.thezayin.presentation.PreviewScreen
-import com.thezayin.setting.SettingScreen
+import com.thezayin.category.presentation.CategoryScreen
+import com.thezayin.favorites.presentation.FavoritesScreen
+import com.thezayin.homes.presentation.HomeScreen
+import com.thezayin.preview.presentation.PreviewScreen
+import com.thezayin.start_up.onboarding.OnboardingScreen
+import com.thezayin.start_up.setting.SettingScreen
 
 @Composable
 fun NavHost(navController: NavHostController) {
     androidx.navigation.compose.NavHost(
-        navController = navController,
-        startDestination = SplashScreenNav
+        navController = navController, startDestination = SplashScreenNav
     ) {
         composable<SplashScreenNav> {
             SplashScreen(
-                onNavigate = {
+                navigateToOnboarding = {
+                    navController.navigate(OnboardingScreenNav) {
+                        popUpTo(SplashScreenNav) {
+                            inclusive = true
+                        }
+                    }
+                },
+                navigateToHome = {
                     navController.navigate(HomeScreenNav)
-                }
-            )
+                })
         }
         composable<HomeScreenNav> {
             HomeScreen(
-                onCategoryClick = { id, title ->
-                    navController.navigate(CategoryImageScreenNav(id, title))
-                },
-                onMoreCategoryClick = {
-                    navController.navigate(CategoryScreenNav)
-                },
-                onImageClick = { url ->
-                    navController.navigate(PreviewScreenNav(url))
-                },
                 onSettingClick = {
                     navController.navigate(SettingScreenNav)
-                },
-                onLikeClick = {
+                }, onImageClick = {
+                    navController.navigate(PreviewScreenNav)
+                }, onLikeClick = {
                     navController.navigate(FavouriteScreenNav)
-                },
-            )
+                }, onCategoryClick = {
+                    navController.navigate(CategoryScreenNav)
+                })
         }
         composable<CategoryScreenNav> {
-            CategoryScreen(
-                onBackClick = {
-                    navController.navigateUp()
-                },
-                onCategoryClick = { id, title ->
-                    navController.navigate(CategoryImageScreenNav(id, title))
-                }
-            )
+            CategoryScreen(onBack = {
+                navController.navigateUp()
+            }, onPreview = {
+                navController.navigate(PreviewScreenNav)
+            })
         }
-        // Category screen
-        composable<CategoryImageScreenNav> {
-            val args = it.toRoute<CategoryImageScreenNav>()
-            CategoryImageScreen(
-                id = args.id ?: 0,
-                title = args.title ?: "",
-                onBackClick = { navController.navigateUp() },
-                onImageSelection = { url ->
-                    navController.navigate(PreviewScreenNav(url))
-                }
-            )
-        }
-        // Favourite screen
+
         composable<FavouriteScreenNav> {
-            FavouriteScreen(
-                onBackClick = { navController.navigateUp() },
-                onImageClick = { url ->
-                    navController.navigate(PreviewScreenNav(url))
-                }
-            )
+            FavoritesScreen(onBackClick = { navController.navigateUp() }, onPreviewClick = {
+                navController.navigate(PreviewScreenNav)
+            })
         }
-        // Setting screen
         composable<SettingScreenNav> {
             SettingScreen(
-                onBackClick = { navController.navigateUp() }
-            )
+                onBackClick = { navController.navigateUp() })
         }
-        //PreviewScreen
         composable<PreviewScreenNav> {
-            val args = it.toRoute<PreviewScreenNav>()
             PreviewScreen(
-                imageUrl = args.url ?: "",
-                onBackClick = { navController.navigateUp() }
+                onBack = { navController.navigateUp() })
+        }
+        composable<OnboardingScreenNav> {
+            OnboardingScreen(
+                navigateToHome = {
+                    navController.navigate(HomeScreenNav) {
+                        popUpTo(SplashScreenNav) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
     }

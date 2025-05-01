@@ -2,7 +2,7 @@ package com.thezayin.data
 
 import com.thezayin.domain.model.PreviewMenu
 import com.thezayin.domain.repository.FavoriteMenuRepository
-import com.thezayin.framework.utils.Response
+import com.thezayin.framework.utils.Responsee
 import com.thezayin.values.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,13 +14,13 @@ import kotlinx.coroutines.flow.flow
 class FavoriteMenuRepositoryImpl : FavoriteMenuRepository {
     /**
      * Fetches the list of favorite menu items.
-     * Emits loading, success, and error states as a [Flow] of [Response].
+     * Emits loading, success, and error states as a [Flow] of [Responsee].
      *
-     * @return A [Flow] that emits [Response] objects with the list of [PreviewMenu].
+     * @return A [Flow] that emits [Responsee] objects with the list of [PreviewMenu].
      */
-    override fun getMenuItems(): Flow<Response<List<PreviewMenu>>> = flow {
+    override fun getMenuItems(): Flow<Responsee<List<PreviewMenu>>> = flow {
         try {
-            emit(Response.Loading)  // Emit loading state
+            emit(Responsee.Loading)  // Emit loading state
 
             // Simulated list of preview menu items
             val menuItems = listOf(
@@ -28,11 +28,11 @@ class FavoriteMenuRepositoryImpl : FavoriteMenuRepository {
                 PreviewMenu(2, "Remove", R.drawable.ic_unlike)
             )
 
-            emit(Response.Success(menuItems))  // Emit success state with the list of menu items
+            emit(Responsee.Success(menuItems))  // Emit success state with the list of menu items
         } catch (e: Exception) {
             // Emit error state with the exception message, or a generic message if null
             emit(
-                Response.Error(
+                Responsee.Error(
                     e.localizedMessage ?: "An error occurred while fetching menu items"
                 )
             )

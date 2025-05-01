@@ -6,7 +6,7 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import com.thezayin.domain.repository.SaveImageRepository
-import com.thezayin.framework.utils.Response
+import com.thezayin.framework.utils.Responsee
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
@@ -37,16 +37,16 @@ class SaveImageRepositoryImpl(private val context: Context) : SaveImageRepositor
     }
 
     /**
-     * Saves the image from the provided URL and returns the result as a [Flow] of [Response].
+     * Saves the image from the provided URL and returns the result as a [Flow] of [Responsee].
      * The response can represent the loading, success, or error states.
      *
      * @param url The URL of the image to be saved.
-     * @return A [Flow] that emits [Response] containing the saved image URI or an error message.
+     * @return A [Flow] that emits [Responsee] containing the saved image URI or an error message.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    override fun saveImage(url: String): Flow<Response<String>> = flow {
+    override fun saveImage(url: String): Flow<Responsee<String>> = flow {
         try {
-            emit(Response.Loading)  // Emit loading state
+            emit(Responsee.Loading)  // Emit loading state
 
             // Download the image bytes
             val imageBytes = downloadImage(url)
@@ -54,11 +54,11 @@ class SaveImageRepositoryImpl(private val context: Context) : SaveImageRepositor
             // Save the image and get the saved URI
             val savedImageUri = saveImageToStorage(url, imageBytes)
 
-            emit(Response.Success(savedImageUri))  // Emit success with URI
+            emit(Responsee.Success(savedImageUri))  // Emit success with URI
         } catch (e: Exception) {
             // Emit error state with an exception message, or a generic message if null
             emit(
-                Response.Error(
+                Responsee.Error(
                     e.localizedMessage ?: "An error occurred while saving the image"
                 )
             )

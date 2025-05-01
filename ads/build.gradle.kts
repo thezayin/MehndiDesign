@@ -39,8 +39,7 @@ android {
 
 dependencies {
 
-    implementation(project(":common:values"))
-    implementation(project(":analytics"))
+    implementation(project(":framework"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

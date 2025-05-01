@@ -14,11 +14,13 @@
     <color name="green_level_1">#015c4b</color>
     <color name="icon_color">#000000</color>
     <color name="background">#B3FFFFFF</color>
-    <color name="dialog_button_color">#122f51</color>
+    <color name="dialog_button_color">#F1B18B</color>
     <color name="text_color">#485054</color>
     <color name="green">#069952</color>
     <color name="red">#E62E2E</color>
     <color name="transparent">#00000000</color>
+
+    <color name="loading_indicator">#F1B18B</color>
 
     //blur list background
     <color name="blur_background">#80000000</color>

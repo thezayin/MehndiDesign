@@ -24,7 +24,10 @@ import androidx.compose.ui.window.Dialog
 import com.thezayin.values.R
 
 @Composable
-fun ErrorQueryDialog(showDialog: (Boolean) -> Unit, callback: () -> Unit, error: String) {
+fun ErrorQueryDialog(
+    callback: () -> Unit,
+    errorMessage: String
+) {
     Dialog(onDismissRequest = { }) {
         Surface(
             shape = RoundedCornerShape(16.dp),
@@ -37,7 +40,7 @@ fun ErrorQueryDialog(showDialog: (Boolean) -> Unit, callback: () -> Unit, error:
 
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
-                        text = error,
+                        text = errorMessage,
                         fontFamily = FontFamily(Font(R.font.noto_sans_regular)),
                         color = colorResource(id = R.color.text_color),
                         fontSize = 16.sp,
@@ -47,7 +50,6 @@ fun ErrorQueryDialog(showDialog: (Boolean) -> Unit, callback: () -> Unit, error:
                     Spacer(modifier = Modifier.height(20.dp))
                     Button(
                         onClick = {
-                            showDialog(false)
                             callback()
                         },
                         modifier = Modifier.fillMaxWidth(),

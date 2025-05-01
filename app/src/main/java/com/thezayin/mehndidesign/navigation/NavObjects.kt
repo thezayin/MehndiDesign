@@ -16,14 +16,7 @@ object FavouriteScreenNav
 object SettingScreenNav
 
 @kotlinx.serialization.Serializable
-data class CategoryImageScreenNav(
-    val id: Int? = null,
-    val title: String? = null
-)
+object OnboardingScreenNav
 
 @kotlinx.serialization.Serializable
-data class PreviewScreenNav(
-    val url: String? = null,
-    val id: Int? = null,
-    val isFavourite: Boolean? = null
-)
+object PreviewScreenNav

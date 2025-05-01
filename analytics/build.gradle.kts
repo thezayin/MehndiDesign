@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version "2.0.10-1.0.24"
+    alias(libs.plugins.ksp)
     id("kotlin-kapt")
 }
 

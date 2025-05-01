@@ -38,7 +38,7 @@ fun PreviewScreen(
     val uiState = viewModel.previewUIState.collectAsState().value
 
     val googleManager = viewModel.googleManager
-    val remoteConfig = viewModel.remoteConfig.adConfigs
+    val remoteConfig = viewModel.remoteConfig11.adConfigs
     val showLoadingAd = remoteConfig.nativeAdOnPreviewLoading
     val showBottomAd = remoteConfig.nativeAdOnPreviewScreen
     val showAdOnBackPress = remoteConfig.adOnBackPress

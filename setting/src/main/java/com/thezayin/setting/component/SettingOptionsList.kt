@@ -6,45 +6,40 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.delay
 
 @Composable
 fun SettingOptionsList() {
-    // State to manage visibility of each component
     val headerVisible = remember { mutableStateOf(false) }
     val otherListVisible = remember { mutableStateOf(false) }
     val legalListVisible = remember { mutableStateOf(false) }
-
-    // LaunchedEffect to handle sequential animation
     LaunchedEffect(Unit) {
-        // Delay and show header
-        delay(300) // Adjust delay as needed
+        delay(300)
         headerVisible.value = true
-
-        // Delay and show other list
-        delay(300) // Adjust delay as needed
+        delay(300)
         otherListVisible.value = true
-
-        // Delay and show legal list
-        delay(300) // Adjust delay as needed
+        delay(300)
         legalListVisible.value = true
     }
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 20.sdp)
     ) {
-        // Animated visibility for header
         AnimatedVisibility(
             visible = headerVisible.value,
             enter = slideInVertically(
                 initialOffsetY = { it },
                 animationSpec = tween(
-                    durationMillis = 1000, // Adjust duration as needed
+                    durationMillis = 1000,
                     easing = LinearOutSlowInEasing
                 )
             ),
@@ -52,13 +47,12 @@ fun SettingOptionsList() {
             SettingHeader()
         }
 
-        // Animated visibility for other list
         AnimatedVisibility(
             visible = otherListVisible.value,
             enter = slideInVertically(
                 initialOffsetY = { it },
                 animationSpec = tween(
-                    durationMillis = 1000, // Adjust duration as needed
+                    durationMillis = 1000,
                     easing = LinearOutSlowInEasing
                 )
             ),
@@ -66,13 +60,12 @@ fun SettingOptionsList() {
             OtherListComponent()
         }
 
-        // Animated visibility for legal list
         AnimatedVisibility(
             visible = legalListVisible.value,
             enter = slideInVertically(
                 initialOffsetY = { it },
                 animationSpec = tween(
-                    durationMillis = 1000, // Adjust duration as needed
+                    durationMillis = 1000,
                     easing = LinearOutSlowInEasing
                 )
             ),

@@ -19,25 +19,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.thezayin.values.R
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 @Preview
 @Composable
 fun SettingHeader() {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp) // Added horizontal padding for better layout
-            .padding(top = 24.dp), // Adjusted top padding for better spacing
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
-            modifier = Modifier.size(100.dp),
-            shape = RoundedCornerShape(50.dp), // Adjusted shape for a perfect circle
-            onClick = { /* Add click action if needed */ }
+            modifier = Modifier.size(65.sdp),
+            shape = RoundedCornerShape(65.sdp),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_main),
@@ -47,10 +44,10 @@ fun SettingHeader() {
         }
         Text(
             text = stringResource(id = R.string.app_name),
-            fontSize = 20.sp,
+            fontSize = 12.ssp,
             fontFamily = FontFamily(Font(R.font.noto_sans_medium)),
             color = colorResource(id = R.color.text_color),
-            modifier = Modifier.padding(top = 16.dp) // Adjusted padding for better spacing
+            modifier = Modifier.padding(top = 8.sdp)
         )
     }
 }
