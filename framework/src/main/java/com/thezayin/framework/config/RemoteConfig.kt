@@ -7,7 +7,7 @@ import kotlinx.serialization.MissingFieldException
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 
-private const val AD_CONFIGS = "ad_configss"
+private const val AD_CONFIGS = "ad_configs"
 
 class RemoteConfig(
     private val json: Json
