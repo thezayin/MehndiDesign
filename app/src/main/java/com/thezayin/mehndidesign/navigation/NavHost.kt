@@ -65,11 +65,7 @@ fun NavHost(navController: NavHostController) {
         composable<OnboardingScreenNav> {
             OnboardingScreen(
                 navigateToHome = {
-                    navController.navigate(HomeScreenNav) {
-                        popUpTo(SplashScreenNav) {
-                            inclusive = true
-                        }
-                    }
+                    navController.navigate(HomeScreenNav)
                 }
             )
         }

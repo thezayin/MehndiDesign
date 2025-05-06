@@ -1,6 +1,7 @@
 package com.thezayin.homes.presentation
 
 import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -146,4 +147,8 @@ fun HomeScreen(
             )
         }
     )
+
+    BackHandler {
+        activity.finish()
+    }
 }

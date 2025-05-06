@@ -45,7 +45,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        dataBinding = true
         compose = true
     }
     packaging {
@@ -95,7 +94,6 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.inappmessaging.display)
     implementation(libs.firebase.config)
-    implementation(libs.androidx.work.runtime)
 
     //navigation
     implementation(libs.androidx.navigation.compose)

@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.thezayin.mehndidesign" />
-                  <option name="mobileSdkAppId" value="1:425714963024:android:fe6dbe85095a3105fdb755" />
-                  <option name="projectId" value="mehndi-design-265a4" />
-                  <option name="projectNumber" value="425714963024" />
+                  <option name="mobileSdkAppId" value="1:521116786447:android:514f3d58e97e7b0246687a" />
+                  <option name="projectId" value="mehndi-design-android" />
+                  <option name="projectNumber" value="521116786447" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
